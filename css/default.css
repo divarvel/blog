@@ -1,0 +1,58 @@
+body {
+    width: 960px;
+    margin: 0px auto 0px auto;
+}
+
+body>header hgroup {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+body>header h1 {
+    font-size: 2.2em;
+}
+
+body>header h2 {
+    font-size: 1.1em;
+    font-weight: normal;
+}
+
+body>header a, body>header a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+nav {
+    text-align: center;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: gray;
+    text-decoration: none;
+}
+
+article h1, article h2 {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+article h1 {
+    font-size: 2em;
+}
+
+article h2 {
+    font-size: 1.5em;
+}
+
+body>footer {
+    text-align: center;
+    border-top: 1px solid black;
+    margin-top: 10px;
+}
