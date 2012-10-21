@@ -21,4 +21,4 @@ publish: build
 	git push pub publish:master
 	git checkout master
 	git checkout -- .
-	git stash pop
+	git stash pop || true
