@@ -6,5 +6,8 @@ build: hakyll
 hakyll: hakyll.hs
 	ghc --make hakyll.hs
 
+new:
+	@./new_post.sh
+
 publish: build
 	#ToDo
