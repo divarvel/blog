@@ -22,3 +22,6 @@ publish: build
 	git checkout master
 	git checkout -- .
 	git stash pop || true
+
+clean: hakyll
+	./hakyll clean
