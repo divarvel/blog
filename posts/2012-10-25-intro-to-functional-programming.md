@@ -48,8 +48,18 @@ During the rest of the session, I solved small problems on the whiteboard to
 show students the functional problem-solving mindset. A few of them were quite
 active and got it quite fast.
 
+I had a few minutes left, so I decided to quickly show them some category
+theory constructs and how it enabled them to take great advantage from simple
+abstractions. Thanks to their math background, a Monoid was a familiar concept
+for many of them and I've been able to show how this abstract, mathematical
+construct was helpful with more concrete problems.
+
 The feedback I got from the students and a teacher who attended the class was
 generally positive. It was a bit fast and technical, but interesting.
+
+Apart from the talk, I gave a list of must read books and papers (SICP, Why FP
+matters, Learn You A Haskell…) but I'm not sure how many of them have been
+looking at it yet.
 
 [Slides (in French), PDF](/files/intro_fp.pdf)
 
