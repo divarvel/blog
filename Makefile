@@ -23,5 +23,8 @@ publish: build
 	git checkout -- .
 	git stash pop || true
 
+preview: hakyll
+	./hakyll preview 9000
+
 clean: hakyll
 	./hakyll clean
