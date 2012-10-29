@@ -33,6 +33,12 @@ is optimized for upstream contributions.
 The community is nice but has a strong RTFM culture. So you need to make sure
 to research your issue thoroughly before asking for help.
 
+Paludis is by far the most capable and flexible package manager I have used.
+It's still a bit rough around the edges from time to time, but I've never felt
+limited by it.
+
+Here are some commands, just to give you the look and feel of the everyday tasks.
+
 ##Updating the system
 
     cave resolve -c1 -Cs -km -Km world
