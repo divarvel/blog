@@ -68,6 +68,8 @@ I've not yet written unit tests for hammertime (which is bad, I know), and I
 must admit I'm a bit put off by how they're integrated in cabal. Again, I miss
 ``sbt`` for this.
 
+Cabal is able to provide all of that, but not out of the box.
+
 
 ###Playing with the code
 
@@ -109,7 +111,9 @@ Since I'm quite new to haskell, my knowledge of the standard library is a bit
 thin, and that's where [Hoogle](http://www.haskell.org/hoogle) is a *huge*
 time-saver. [Yahoo](http://holumbus.fh-wedel.de/hayoo/hayoo.html) is more
 useful for packages outside the standard lib, but for these I prefer to read
-thoroughly the documentation.
+thoroughly the documentation. These tools allow me to *find functions based on
+their type*. Since haskell's type system is really expressive and functions
+are highly generic, most often the type describes exactly the feature.
 
 Even though I almost know [LYAH](http://learnyouahaskell.com/) by heart and I
 have a decent knowledge of common haskell constructs, I don't know anything
