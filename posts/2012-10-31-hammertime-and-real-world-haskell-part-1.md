@@ -40,7 +40,7 @@ world haskell development compares to other, mainstream workflows.
 Most of the time I just load a ``.hs`` file from ``ghci`` and I get running.
 This time, I've put up a cabal setup, just to keep track of the dependencies
 and to quickly provide a usable executable (even though I can't visualize
-data, I've started to collect some). However, hammertime is still in on file,
+data, I've started to collect some). However, hammertime is still in one file,
 so I've kept cabal from my development workflow. Also, I must admit that I'm a
 bit scared of its dependency management, which is bad,
 [to say the least](http://www.txt.io/t-2kv5h). Fortunately, I use cabal only
