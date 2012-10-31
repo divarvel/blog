@@ -109,7 +109,7 @@ Once again, it's quite the same for haskell or scala or JS, I just browse the
 reference websites when I want to have precise info on some part of the API.
 Since I'm quite new to haskell, my knowledge of the standard library is a bit
 thin, and that's where [Hoogle](http://www.haskell.org/hoogle) is a **huge**
-time-saver. [Yahoo](http://holumbus.fh-wedel.de/hayoo/hayoo.html) is more
+time-saver. [Hayoo!](http://holumbus.fh-wedel.de/hayoo/hayoo.html) is more
 useful for packages outside the standard lib, but for these I prefer to read
 thoroughly the documentation. These tools allow me to **find functions based on
 their type**. Since haskell's type system is really expressive and functions
