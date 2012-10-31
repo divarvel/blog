@@ -5,8 +5,8 @@ tags: fp, haskell
 ---
 
 I've spent the last few evenings on a pet project,
-[Hammertime](http://github.com/divarvel/hammertime). It's a CLI
-time-tracker which allows me to collect data on how I use my time. I intend to
+[Hammertime](http://github.com/divarvel/hammertime). It's a **CLI
+time-tracker** which allows me to collect data on how I use my time. I intend to
 generate SVG reports later on.
 
 For instance, before starting to read my news feeds:
@@ -30,8 +30,8 @@ functional, highly abstract code (the kind of code I've never written outside
 of haskell-land) and more concrete, everyday code, to see how Haskell's beauty
 can help me in a more mundane task.
 
-I intend to track my work on hammertime in a few posts to write about how real
-world haskell development compares to other, mainstream workflows.
+I intend to **track my work on hammertime on this blog** to write about **how
+real world haskell development compares to other, mainstream workflows**.
 
 ##Development environment
 
@@ -80,7 +80,7 @@ use one, but right now, I'm using languages expressive enough to avoid IDEs (I
 even wrote a small java project from ``sbt`` the other day and played with it
 via the ``REPL``, but that's another story).
 
-Overall, I've been able to keep my habits: ``vim`` + ``ghci`` is a great combo
+Overall, I've been able to keep my habits: **``vim`` + ``ghci`` is a great combo**
 to play with code. One nice side effect is that it gives a strong incentive to
 write really short top-level methods, which are easier to use in ghci.
 
@@ -108,16 +108,16 @@ formulations, but from time to time it's useful.
 Once again, it's quite the same for haskell or scala or JS, I just browse the
 reference websites when I want to have precise info on some part of the API.
 Since I'm quite new to haskell, my knowledge of the standard library is a bit
-thin, and that's where [Hoogle](http://www.haskell.org/hoogle) is a *huge*
+thin, and that's where [Hoogle](http://www.haskell.org/hoogle) is a **huge**
 time-saver. [Yahoo](http://holumbus.fh-wedel.de/hayoo/hayoo.html) is more
 useful for packages outside the standard lib, but for these I prefer to read
-thoroughly the documentation. These tools allow me to *find functions based on
-their type*. Since haskell's type system is really expressive and functions
+thoroughly the documentation. These tools allow me to **find functions based on
+their type**. Since haskell's type system is really expressive and functions
 are highly generic, most often the type describes exactly the feature.
 
 Even though I almost know [LYAH](http://learnyouahaskell.com/) by heart and I
-have a decent knowledge of common haskell constructs, I don't know anything
-about basic stuff like writing to a file or reading command line args. That's
+have a decent knowledge of common haskell constructs, **I don't know anything
+about basic stuff like writing to a file or reading command line args**. That's
 where [Real World Haskell](http://book.realworldhaskell.org/) is of tremendous
 help. I've not read it completely yet because it frightened me a bit, but the
 more I read it, the more I like the choices taken by its authors. They offer a
@@ -128,14 +128,14 @@ I just wish they explained how to package Haskell software with cabal.
 ##Wrap up
 
 Apart from the problems with cabal, developing in Haskell is a nice
-experience. ``ghci`` and _hoogle_ are making me insanely more productive when
+experience. ``ghci`` and *hoogle* are making me insanely more productive when
 I'm in need of documentation. Hoogle is one of the best proofs that a good
 type system is essential for readability. I may not have been as productive
 with new libraries as I would have with an IDE and some ``C^Space`` magic, but
 I've learned more about the libraries I'm using.
 
 
-Next part will be about the thought project when prototyping haskell code.
+Next part will be about the **thought process when prototyping haskell code**.
 I've found it to be quite different from the one I adopt when writing scala or
 JS.
 
