@@ -1,10 +1,21 @@
 body {
-    width: 960px;
-    margin: 0px auto 0px auto;
+    max-width: 50em;
+    min-width: 20em;
+    margin: auto;
+    padding: 1em;
+    font-family: 'Crimson Text', serif;
+}
+
+pre {
+    padding: 1em;
+}
+
+code, pre {
+    background-color: #ddd;
 }
 
 body>header hgroup {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Lato, Helvetica, Arial, sans-serif;
 }
 
 body>header h1 {
@@ -19,6 +30,11 @@ body>header h2 {
 body>header a, body>header a:hover {
     color: black;
     text-decoration: none;
+}
+
+menu {
+    padding: 0;
+    margin: 0;
 }
 
 nav {
@@ -41,7 +57,7 @@ nav a:hover {
 }
 
 article h1, article h2 {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Lato, Helvetica, Arial, sans-serif;
 }
 
 article h1 {
