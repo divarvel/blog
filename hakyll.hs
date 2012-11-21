@@ -102,5 +102,5 @@ feedConfiguration = FeedConfiguration
     , feedDescription = "Musings about FP and CS"
     , feedAuthorName  = "Clément Delafargue"
     , feedAuthorEmail = "clement+blog@delafargue.name"
-    , feedRoot        = "http://clementd.cleverapps.io"
+    , feedRoot        = "http://blog.clement.delafargue.name"
     }
