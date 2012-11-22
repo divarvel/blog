@@ -27,6 +27,8 @@ main = hakyll $ do
             >>> arr (renderDateField "date" "%B %e, %Y" "Date unknown")
             >>> renderTagsField "prettytags" (fromCapture "tags/*")
             >>> applyTemplateCompiler "templates/post.html"
+            >>> (arr $ copyBodyToField "description")
+            >>> applyTemplateCompiler "templates/disqus.html"
             >>> applyTemplateCompiler "templates/default.html"
             >>> relativizeUrlsCompiler
 
@@ -63,7 +65,6 @@ main = hakyll $ do
     match "rss.xml" $ route idRoute
     create "rss.xml" $
         requireAll_ "posts/*"
-            >>> mapCompiler (arr $ copyBodyToField "description")
             >>> renderRss feedConfiguration
 
     -- Read templates
