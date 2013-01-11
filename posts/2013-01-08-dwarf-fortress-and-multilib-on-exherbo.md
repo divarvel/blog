@@ -146,3 +146,6 @@ distro made me realize how much a clean distro allows you to control your
 system. There is some work on a ``multiarch`` setup which would allow me to
 have a clean cross-compilation chain for my my Raspeberry Pi. I'm eager to
 test it :)
+
+Now, strike the earth !
+![files/df.png](Dwarf Fortress screenshot)
