@@ -139,7 +139,7 @@ Running an Exherbo is not always for the faint-hearted, requires care and some
 extra work from time to time, but gives in return the cleanest system I've
 ever had. The toolset which is available allows users to handle cleanly
 virtually any case.
-@Keruspe has been of tremendous help on this one :)
+[Marc Antoine](http://github.com/keruspe) has been of tremendous help on this one :)
 
 I've recently bought a Raspeberry Pi and I put Raspbian on it. Using a binary
 distro made me realize how much a clean distro allows you to control your
