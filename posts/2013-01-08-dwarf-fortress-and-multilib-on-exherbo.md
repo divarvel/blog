@@ -36,7 +36,7 @@ build option. Turns out exherbo just does that :)
 
 In exherbo, you can ask a package to be built twice: one time as 32bit, one
 time as 64bit. The compiled libs will then be stored in ``/usr/lib32`` and
-``/usr/lib64``. All you have to do is add ``multibuild\_c: 32`` to the package
+``/usr/lib64``. All you have to do is add ``multibuild_c: 32`` to the package
 options.
 
 ### Multibuild core system
@@ -54,7 +54,7 @@ machine took a few hours.
 To see which libs Dwarf Fortress is linked against, use ``ldd-tree`` or just
 try to run it.
 
-The rest is just a matter of adding ``multibuild\_c: 32`` to the missing lib,
+The rest is just a matter of adding ``multibuild_c: 32`` to the missing lib,
 trying to resolve it, gathering its dependencies in the error report,
 switching these dependencies to multibuild, and iterating.
 
@@ -72,12 +72,12 @@ After a few iterations, I was left with only two missing libs.
 ## Patching packages
 
 Unfortunately, two libraries were not packaged with support of multibuild
-(this is quite a recent change), ``SDL\_ttf`` and ``SDL\_image``. One lib was
+(this is quite a recent change), ``SDL_ttf`` and ``SDL_image``. One lib was
 easy to patch, the other one demanded some extra work.
 
 ### The easy one
 
-Patching ``SDL\_image``'s exheres was just a matter of declaring the fact that
+Patching ``SDL_image``'s exheres was just a matter of declaring the fact that
 this lib was buildable as a 32bit binary or a 64bit binary (the ``MYOPTIONS``
 part), and requiring the dependencies to have the same multibuild setup.
 
@@ -118,7 +118,7 @@ part), and requiring the dependencies to have the same multibuild setup.
 
 ### The hard one
 
-Patching ``SDL\_ttf`` was a tad harder: at some time during the compilation of
+Patching ``SDL_ttf`` was a tad harder: at some time during the compilation of
 the 32bit binary, the build process tried to link with a dependency… in
 ``/usr/lib32/``. Instead of using ``pkg-config`` to retrieve the libs folder,
 the ``.configure`` used `sdl-config`` which always returned ``/usr/lib64/``.
