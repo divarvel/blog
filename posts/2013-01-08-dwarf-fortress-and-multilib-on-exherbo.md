@@ -121,7 +121,7 @@ part), and requiring the dependencies to have the same multibuild setup.
 Patching ``SDL_ttf`` was a tad harder: at some time during the compilation of
 the 32bit binary, the build process tried to link with a dependency… in
 ``/usr/lib32/``. Instead of using ``pkg-config`` to retrieve the libs folder,
-the ``.configure`` used `sdl-config`` which always returned ``/usr/lib64/``.
+the ``.configure`` used ``sdl-config`` which always returned ``/usr/lib64/``.
 
 ### Workflow
 
