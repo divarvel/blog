@@ -44,7 +44,7 @@ options.
 The first step is to switch the core of you system to multibuild (change the
 directory structure, and recompile gcc and glibc).
 
-It's explained here: (http://www.mailstation.de/wordpress/?p=118)
+It's explained here: <http://www.mailstation.de/wordpress/?p=118>
 
 This step takes some time. Bootstrap-compiling ``glibc`` and ``gcc`` on my
 machine took a few hours.
