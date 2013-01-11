@@ -148,4 +148,4 @@ have a clean cross-compilation chain for my my Raspeberry Pi. I'm eager to
 test it :)
 
 Now, strike the earth !
-![files/df.png](Dwarf Fortress screenshot)
+![Dwarf Fortress screenshot](/files/df.png "Dwarf Fortress screenshot")
