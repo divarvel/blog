@@ -127,10 +127,10 @@ the `.configure` used `sdl-config` which always returned `/usr/lib64/`.
 ### Workflow
 
 I've read carefully Keruspe's blog posts
-([http://www.imagination-land.org/posts/2013-01-03-knowing-your-system---part-7---contributing-to-exherbo.html](Contributing to Exherbo) and
-[http://www.imagination-land.org/posts/2013-01-10-knowing-your-system---part-8---on-the-road-to-upstream.html](The path to upstream)) as well as Exherbo's resources,
-[http://www.exherbo.org/docs/exheres-for-smarties.html](Exheres for smarties)
-and [http://www.exherbo.org/docs/contributing.html](Contributing).
+([Contributing to Exherbo](http://www.imagination-land.org/posts/2013-01-03-knowing-your-system---part-7---contributing-to-exherbo.html) and
+[The path to upstream](http://www.imagination-land.org/posts/2013-01-10-knowing-your-system---part-8---on-the-road-to-upstream.html)) as well as Exherbo's resources,
+[Exheres for smarties](http://www.exherbo.org/docs/exheres-for-smarties.html)
+and [Contributing](http://www.exherbo.org/docs/contributing.html).
 The workflow is surprisingly light. Exherbo's conflation between users and
 contributors really shines there. The workflow is entirely based on the
 standard system tools.
