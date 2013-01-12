@@ -19,14 +19,14 @@ exherbo and paludis are.
 
 The distros handles it differently.
 In Debian, some 32bit libs are bundled in a dedicated package (for instance in
-Debian, it's ``ia32libs``). If the lib you need is not in this package, well
+Debian, it's `ia32libs`). If the lib you need is not in this package, well
 you'll have to put it manually.
-In Fedora, it's a bit cleaner, just install ``<package name>.i386`` to get the
+In Fedora, it's a bit cleaner, just install `<package name>.i386` to get the
 32bit version.
 
 Even though Gentoo is a source-based distro, it does not provide a dramatic
 improvement in terms of flexibility. 32bit libs are available as different
-packages (for instance ``emul-linux-x86-gtklibs`). A bit better than a
+packages (for instance `emul-linux-x86-gtklibs`). A bit better than a
 monolithic package à la Debian, but still kludgy. Since the source code is the
 same, it's a bit sad to duplicate packages.
 
@@ -35,8 +35,8 @@ Building a lib in 32bit or 64bit should be as easy as enabling or disabling a
 build option. Turns out exherbo just does that :)
 
 In exherbo, you can ask a package to be built twice: one time as 32bit, one
-time as 64bit. The compiled libs will then be stored in ``/usr/lib32`` and
-``/usr/lib64``. All you have to do is add ``multibuild_c: 32`` to the package
+time as 64bit. The compiled libs will then be stored in `/usr/lib32` and
+`/usr/lib64`. All you have to do is add `multibuild_c: 32` to the package
 options.
 
 ### Multibuild core system
@@ -46,15 +46,15 @@ directory structure, and recompile gcc and glibc).
 
 It's explained here: <http://www.mailstation.de/wordpress/?p=118>
 
-This step takes some time. Bootstrap-compiling ``glibc`` and ``gcc`` on my
+This step takes some time. Bootstrap-compiling `glibc` and `gcc` on my
 machine took a few hours.
 
 ### Libraries
 
-To see which libs Dwarf Fortress is linked against, use ``ldd-tree`` or just
+To see which libs Dwarf Fortress is linked against, use `ldd-tree` or just
 try to run it.
 
-The rest is just a matter of adding ``multibuild_c: 32`` to the missing lib,
+The rest is just a matter of adding `multibuild_c: 32` to the missing lib,
 trying to resolve it, gathering its dependencies in the error report,
 switching these dependencies to multibuild, and iterating.
 
@@ -62,8 +62,8 @@ If this seems tedious, it's because it is. However the pain can be greatly
 mitigated with a bit of vim-fu.
 
 The firt iteration (dependents of SDL) made me re-compile most of my core
-system packages, which introduced a circular dependency between ``systemd``,
-``dbus`` and ``util-linux`` (through ``udev``). In this case, the solution is
+system packages, which introduced a circular dependency between `systemd`,
+`dbus` and `util-linux` (through `udev`). In this case, the solution is
 to temporarily disable flags, break the circle, put the flags on and compile
 again.
 
@@ -72,13 +72,13 @@ After a few iterations, I was left with only two missing libs.
 ## Patching packages
 
 Unfortunately, two libraries were not packaged with support of multibuild
-(this is quite a recent change), ``SDL_ttf`` and ``SDL_image``. One lib was
+(this is quite a recent change), `SDL_ttf` and `SDL_image`. One lib was
 easy to patch, the other one demanded some extra work.
 
 ### The easy one
 
-Patching ``SDL_image``'s exheres was just a matter of declaring the fact that
-this lib was buildable as a 32bit binary or a 64bit binary (the ``MYOPTIONS``
+Patching `SDL_image`'s exheres was just a matter of declaring the fact that
+this lib was buildable as a 32bit binary or a 64bit binary (the `MYOPTIONS`
 part), and requiring the dependencies to have the same multibuild setup.
 
     --- a/packages/media-libs/SDL_image/SDL_image-1.2.12.exheres-0
@@ -118,10 +118,10 @@ part), and requiring the dependencies to have the same multibuild setup.
 
 ### The hard one
 
-Patching ``SDL_ttf`` was a tad harder: at some time during the compilation of
+Patching `SDL_ttf` was a tad harder: at some time during the compilation of
 the 32bit binary, the build process tried to link with a dependency… in
-``/usr/lib32/``. Instead of using ``pkg-config`` to retrieve the libs folder,
-the ``.configure`` used ``sdl-config`` which always returned ``/usr/lib64/``.
+`/usr/lib32/`. Instead of using `pkg-config` to retrieve the libs folder,
+the `.configure` used `sdl-config` which always returned `/usr/lib64/`.
 
 ### Workflow
 
@@ -143,7 +143,7 @@ virtually any case.
 
 I've recently bought a Raspeberry Pi and I put Raspbian on it. Using a binary
 distro made me realize how much a clean distro allows you to control your
-system. There is some work on a ``multiarch`` setup which would allow me to
+system. There is some work on a `multiarch` setup which would allow me to
 have a clean cross-compilation chain for my my Raspeberry Pi. I'm eager to
 test it :)
 
