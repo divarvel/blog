@@ -33,7 +33,7 @@ same, it's a bit sad to duplicate packages.
 
 Ideally, multibuild should be integrated smoothly in the package manager.
 Building a lib in 32bit or 64bit should be as easy as enabling or disabling a
-build option. Turns out exherbo just does that :)
+build option. Turns out exherbo does just that :)
 
 In exherbo, you can ask a package to be built twice: one time as 32bit, one
 time as 64bit. The compiled libs will then be stored in `/usr/lib32` and
@@ -42,7 +42,7 @@ options.
 
 ### Multibuild core system
 
-The first step is to switch the core of you system to multibuild (change the
+The first step is to switch the core of your system to multibuild (change the
 directory structure, and recompile gcc and glibc).
 
 It's explained here: <http://www.mailstation.de/wordpress/?p=118>
@@ -62,7 +62,7 @@ switching these dependencies to multibuild, and iterating.
 If this seems tedious, it's because it is. However the pain can be greatly
 mitigated with a bit of vim-fu.
 
-The firt iteration (dependents of SDL) made me re-compile most of my core
+The first iteration (dependents of SDL) made me re-compile most of my core
 system packages, which introduced a circular dependency between `systemd`,
 `dbus` and `util-linux` (through `udev`). In this case, the solution is
 to temporarily disable flags, break the circle, put the flags on and compile
@@ -142,10 +142,10 @@ ever had. The toolset which is available allows users to handle cleanly
 virtually any case.
 [Marc Antoine](http://github.com/keruspe) has been of tremendous help on this one :)
 
-I've recently bought a Raspeberry Pi and I put Raspbian on it. Using a binary
+I've recently bought a Raspberry Pi and I put Raspbian on it. Using a binary
 distro made me realize how much a clean distro allows you to control your
 system. There is some work on a `multiarch` setup which would allow me to
-have a clean cross-compilation chain for my my Raspeberry Pi. I'm eager to
+have a clean cross-compilation chain for my Raspberry Pi. I'm eager to
 test it :)
 
 Now, strike the earth !
