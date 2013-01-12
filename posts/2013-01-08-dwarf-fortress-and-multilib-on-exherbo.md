@@ -4,7 +4,8 @@ author: Clément Delafargue
 tags: sysadmin, exherbo, dwarf fortress
 ---
 
-A few months ago, I've played a bit with Dwarf Fortress. It's a rogue-like
+A few months ago, I've played a bit with [Dwarf
+Fortress](http://www.bay12games.com/dwarves/features.html). It's a rogue-like
 game where you manage a settlement of Dwarves. This game is legendary thanks
 to its complexity and its difficulty. I strongly encourage you to give it a
 go.
