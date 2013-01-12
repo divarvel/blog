@@ -68,6 +68,13 @@ main = hakyll $ do
             >>> arr (reverse . chronological)
             >>> renderRss feedConfiguration
 
+    match "atom.xml" $ route idRoute
+    create "atom.xml" $
+        requireAll_ "posts/*"
+            >>> arr (reverse . chronological)
+            >>> renderAtom feedConfiguration
+
+
     -- Read templates
     match "templates/*" $ compile templateCompiler
   where
