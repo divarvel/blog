@@ -10,6 +10,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     line-height: 1.1em;
+    font-family: Lato, Helvetica, Arial, sans-serif;
 }
 
 p {
@@ -22,10 +23,6 @@ pre {
 
 code, pre {
     background-color: #ddd;
-}
-
-body>header hgroup {
-    font-family: Lato, Helvetica, Arial, sans-serif;
 }
 
 body>header h1 {
@@ -64,10 +61,6 @@ nav a {
 nav a:hover {
     color: gray;
     text-decoration: none;
-}
-
-article h1, article h2 {
-    font-family: Lato, Helvetica, Arial, sans-serif;
 }
 
 article h1 {
