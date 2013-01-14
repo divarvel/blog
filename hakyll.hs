@@ -45,7 +45,7 @@ main = hakyll $ do
     match "index.html" $ route idRoute
     create "index.html" $ constA mempty
         >>> arr (setField "title" "Home")
-        >>> requireA "tags" (setFieldA "tagcloud" (renderTagCloud'))
+        >>> requireA "tags" (setFieldA "taglist" (renderTagList'))
         >>> requireAllA "posts/*" (id *** arr (take 10 . reverse . chronological) >>> addPostList)
         >>> applyTemplateCompiler "templates/index.html"
         >>> applyTemplateCompiler "templates/default.html"
@@ -80,6 +80,9 @@ main = hakyll $ do
   where
     renderTagCloud' :: Compiler (Tags String) String
     renderTagCloud' = renderTagCloud tagIdentifier 100 120
+
+    renderTagList' :: Compiler (Tags String) String
+    renderTagList' = renderTagList tagIdentifier
 
     tagIdentifier :: String -> Identifier (Page String)
     tagIdentifier = fromCapture "tags/*"
