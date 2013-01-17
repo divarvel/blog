@@ -24,7 +24,7 @@ publish: build
 	git stash pop || true
 
 preview: hakyll
-	./hakyll preview 9000
+	./hakyll preview -p 9000
 
 clean: hakyll
 	./hakyll clean
