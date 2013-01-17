@@ -59,7 +59,7 @@ classpath), but I use a ``.ghci`` file wich makes ghci execute statements when
 starting.
 
 My reference for a good cabal layout was [Tony Morris' tic-tac-toe
-example](https://github.com/tonymorris/course-answers), until I found
+example](https://github.com/tonymorris/course/tree/answers), until I found
 (precisely when writing down this very sentence) [Tony Morris'
 haskell-package]( https://github.com/tonymorris/haskell-package). This
 skeleton package provides a very good starting point for a package.
