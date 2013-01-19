@@ -58,13 +58,13 @@ nav {
 }
 
 nav a {
-    color: black;
+    color: #000;
     text-decoration: none;
     padding: 0 2em;
 }
 
 nav a:hover {
-    color: gray;
+    color: #808080;
     text-decoration: none;
 }
 
