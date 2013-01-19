@@ -1,10 +1,10 @@
 body {
-    max-width: 40em;
+    max-width: 45em;
     min-width: 20em;
     margin: auto;
     padding: 1em;
     font-family: 'Crimson Text', serif;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.4em;
 }
 
@@ -14,11 +14,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-    margin-bottom: 1.4em;
+    margin-bottom: 1.2em;
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto;
+    color: #333;
 }
 
 pre {
@@ -67,8 +68,18 @@ nav a:hover {
     text-decoration: none;
 }
 
+article header p {
+    margin: 0.2em;
+    margin-left: 2em;
+}
+
+article header {
+    margin-bottom: 2em;
+}
+
 article h1 {
     font-size: 2em;
+    margin-bottom: 0.2em;
 }
 
 article h2 {
