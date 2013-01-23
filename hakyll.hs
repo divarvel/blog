@@ -102,6 +102,7 @@ allPostsCtx =
     constField "title" "All posts" `mappend`
     postCtx
 
+homeCtx :: Tags -> String -> Context String
 homeCtx tags list =
     constField "posts" list `mappend`
     field "taglist" (\_ -> renderTagList tags) `mappend`
