@@ -73,15 +73,15 @@ each section) are in different files.
 
 Hakyll is based on a few important types:
 
-    - `Compiler a`, which produces a unit *and tracks its
-      dependencies*. The types are very generic, I won't be more specific.
-      `Compiler` is an instance of `Monad` so you can easily assemble
-      compilers to create more powerful ones.
-    - `Item a` which pairs some content to an `Identifier`
-    - `Context a` which provides an immutable context allowing to inject data
-      in a template. Typically it will contain the file body and its metadata
-      (title, date, tags). You can join contexts since they're instances of
-      `Monoid`
+- `Compiler a`, which produces a unit *and tracks its
+  dependencies*. The types are very generic, I won't be more specific.
+  `Compiler` is an instance of `Monad` so you can easily assemble
+  compilers to create more powerful ones.
+- `Item a` which pairs some content to an `Identifier`
+- `Context a` which provides an immutable context allowing to inject data
+  in a template. Typically it will contain the file body and its metadata
+  (title, date, tags). You can join contexts since they're instances of
+  `Monoid`
 
 For a regular multi-page website, you write a compiler which turns every input
 file into an output file.
