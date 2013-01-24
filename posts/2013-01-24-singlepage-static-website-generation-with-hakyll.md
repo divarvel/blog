@@ -134,8 +134,10 @@ So, how do we assemble it back ?
 
 First, compile all the blocks
 
-    match "blocks/**.md" $ do
-        compile pandocCompiler
+```haskell
+match "blocks/**.md" $ do
+    compile pandocCompiler
+```
 
 I've not specified a route, so they won't directly appear in the generated
 site. They're just compiled so another compiler can use them.
@@ -147,11 +149,13 @@ whole thing DRY.
 
 First, we assemble the blocks
 
-    refsCompiler :: Compiler String
-    refsCompiler = do
-        blocks <- loadAll "blocks/refs"
-        blockTemplate <- loadBody "templates/blocks/refs.html"
-        blockList <- applyTemplateList blockTemplate defaultContext elements
+```haskell
+refsCompiler :: Compiler String
+refsCompiler = do
+    blocks <- loadAll "blocks/refs"
+    blockTemplate <- loadBody "templates/blocks/refs.html"
+    blockList <- applyTemplateList blockTemplate defaultContext elements
+```
 
 `applyTemplateList` applies a template to every element of the list and joins
 the result. `defaultContext` is provided by Hakyll and contains the block's
@@ -160,33 +164,41 @@ metadata and body.
 Then we inject the elements in the section and return its contents (we drop
 its `Identifier` since it won't be a page on its own).
 
-        sectionTemplate <- loadBody "templates/refs.html"
-        sectionData <- load "blocks/refs.md"
-        section <- applyTemplate sectionTemplate (sectionContext blockList) sectionData
-        return $ itemBody section
+```haskell
+    sectionTemplate <- loadBody "templates/refs.html"
+    sectionData <- load "blocks/refs.md"
+    section <- applyTemplate sectionTemplate (sectionContext blockList) sectionData
+    return $ itemBody section
+```
 
 With `sectionContext` I pass the blocks list to the section template, while
 keeping the sections metadata (`Context` is an instance of `Monoid`).
 
-    sectionContext :: String -> Context String
-    sectionContext list =
-        constField "blocks" `mappend`
-        defaultContext
+```haskell
+sectionContext :: String -> Context String
+sectionContext list =
+    constField "blocks" `mappend`
+    defaultContext
+```
 
 The last thing is to combine all those compilers into one page:
 
-    create ["index.html"] $ do
-        compile $ do
-            pageData <- load "blocks/index.md"
-            r <- refsCompiler
-            page <- loadAndApplyTemplate "templates/default.html" (indexContext r) pageData
-            makeItem $ itemBody page
+```haskell
+create ["index.html"] $ do
+    compile $ do
+        pageData <- load "blocks/index.md"
+        r <- refsCompiler
+        page <- loadAndApplyTemplate "templates/default.html" (indexContext r) pageData
+        makeItem $ itemBody page
+```
 
 As with `sectionContext`, `indexContext` just adds the section contents to
 `defaultContext`.
 
-    indexContext :: String -> Context String
-    indexContext r = constField "refs" r `mappend` defaultContext
+```haskell
+indexContext :: String -> Context String
+indexContext r = constField "refs" r `mappend` defaultContext
+```
 
 The important parts are here. You also have to compile CSS, static files and
 this sort of stuff, but it's quite boring.
