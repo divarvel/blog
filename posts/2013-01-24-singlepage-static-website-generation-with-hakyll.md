@@ -14,12 +14,12 @@ servers like Nginx it only gets better.
 I've been fond of static site generators for a some time now. I've started
 with [rest2web](http://www.voidspace.org.uk/python/rest2web/) which used
 docutils to generate webpages. We used it to create the website of our Junior
-Entreprise. [Nelle Varoquaux]() managed to get a nice site to build but I
-remember it to be non trivial. It involved putting some custom python code im
-my `/lib` and bugging rest2web's creator with a few emails. I liked the
-concept but it was a real pain to use and even more to customize. Nelle did a
-fine job with it but our successors at the Junior Entreprise dropped it
-altogether and replaced it by a hand-rolled PHP website.
+Entreprise. [Nelle Varoquaux](https://github.com/NelleV) managed to get a nice
+site to build but I remember it to be non trivial. It involved putting some
+custom python code im my `/lib` and bugging rest2web's creator with a few
+emails. I liked the concept but it was a real pain to use and even more to
+customize. Nelle did a fine job with it but our successors at the Junior
+Entreprise dropped it altogether and replaced it by a hand-rolled PHP website.
 
 Even though the tool support was less than ideal, I got hooked to the idea of
 static websites.
