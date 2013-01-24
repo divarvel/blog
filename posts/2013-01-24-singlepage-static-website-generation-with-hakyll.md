@@ -7,7 +7,9 @@ tags: hakyll, web
 ## Static sites generators
 
 Static sites generators are quite in a hype these days. They bring lots of
-advantages over CMSs: security, speed, easier versionning…
+advantages over CMSs: security, speed, easier versionning (contents are in the
+SCM, not in the DB, use a real text editor, not a crappy WYSIWYG)… With web
+servers like Nginx it only gets better.
 
 I've been fond of static site generators for a some time now. I've started
 with [rest2web](http://www.voidspace.org.uk/python/rest2web/) which used
@@ -36,12 +38,13 @@ single-page website, this leads to all kinds of dirty hacks. Generally
 speaking, very few projects with Jekyll were achieved without hacking its
 blogpost mechanism in Lovecraftian abominations.
 
-I've also tried to use [Scalate](), a scala templating *library* which was said
-to also support static website generation. Due to how it was packaged, I've
-never been able to make it work, but it gave me an interesting vision on
-static website generation. The key was not to provide a *library* which lets
-you build your own generator. Unfortunately this is not how most static sites
-generators work. This way of thinking can more or less be linked to
+I've also tried to use [Scalate](http://scalate.fusesource.org/), a scala
+templating *library* which was said to also support static website generation.
+Due to how it was packaged, I've never been able to make it work, but it gave
+me an interesting vision on static website generation. The key was not to
+provide a *library* which lets you build your own generator. Unfortunately
+this is not how most static sites generators work. This way of thinking can
+more or less be linked to
 
 >More libraries, less frameworks
 
@@ -49,9 +52,10 @@ but that's another story.
 
 ## Enter Hakyll
 
-Hakyll is a haskell library which lets you create your own site generator. For
-convenience, there are a few examples provided so you can have a blog running
-without coding everything, that's what I did with this blog.
+[Hakyll](http://jaspervdj.be/hakyll) is a haskell library which lets you
+create your own site generator. For convenience, there are a few examples
+provided so you can have a blog running without coding everything, that's what
+I did with this blog.
 
 Hakyll uses [pandoc](http://johnmacfarlane.net/pandoc/), so it supports a
 [huge](http://johnmacfarlane.net/pandoc/diagram.png) number of formats.
@@ -224,4 +228,10 @@ common use cases: a static site, a blog with tags, RSS / Atom support,
 multi-lang setups… The point of this post was that it's possible to build
 something *really* custom with it.
 
-Enjoy :)
+Hakyll is fairly well documented and there are a few hakyll-based websites
+whose source is available:
+
+- [Examples](http://jaspervdj.be/hakyll/examples.html)
+- [Tutorials](http://jaspervdj.be/hakyll/tutorials.html)
+
+Enjoy, and don't forget to thank Jasper on `#hakyll` (freenode).
