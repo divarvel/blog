@@ -171,7 +171,8 @@ its `Identifier` since it won't be a page on its own).
 ```haskell
     sectionTemplate <- loadBody "templates/refs.html"
     sectionData <- load "blocks/refs.md"
-    section <- applyTemplate sectionTemplate (sectionContext blockList) sectionData
+    section <- (applyTemplate
+                    sectionTemplate (sectionContext blockList) sectionData)
     return $ itemBody section
 ```
 
@@ -192,7 +193,8 @@ create ["index.html"] $ do
     compile $ do
         pageData <- load "blocks/index.md"
         r <- refsCompiler
-        page <- loadAndApplyTemplate "templates/default.html" (indexContext r) pageData
+        page <- (loadAndApplyTemplate
+            "templates/default.html" (indexContext r) pageData)
         makeItem $ itemBody page
 ```
 
