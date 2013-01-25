@@ -25,7 +25,7 @@ Even though the tool support was less than ideal, I got hooked to the idea of
 static websites.
 
 Some time later, Jekyll became widely used thanks to GitHub pages and I've
-rolled a few websites with it : my company's website, <http://eklaweb.com>
+rolled a few websites with it: my company's website, <http://eklaweb.com>
 (I'll come to that later), my company's blog <http://blog.eklaweb.com>, and a
 few other projects. I've advocated its use for <http://ordify.de>.
 
