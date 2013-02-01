@@ -158,7 +158,7 @@ refsCompiler :: Compiler String
 refsCompiler = do
     blocks <- loadAll "blocks/refs"
     blockTemplate <- loadBody "templates/blocks/refs.html"
-    blockList <- applyTemplateList blockTemplate defaultContext elements
+    blockList <- applyTemplateList blockTemplate defaultContext blocks
 ```
 
 `applyTemplateList` applies a template to every element of the list and joins
