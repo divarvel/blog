@@ -5,6 +5,7 @@ build: hakyll
 
 hakyll: hakyll.hs
 	ghc --make hakyll.hs
+	./hakyll clean
 
 new:
 	@./new_post.sh
