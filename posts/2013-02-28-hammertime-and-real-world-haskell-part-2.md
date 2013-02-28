@@ -83,9 +83,9 @@ enough with it.
 
 ##Wrap up
 
-Writing "Real World" haskell (as opposed as playing with one-liners for code
+Writing "Real World" haskell (as opposed to playing with one-liners for code
 challenges) is really interesting and helps me a lot to get more effective
-with Haskell. It may not be as funny as writing high-level, ultra-generic code
+with Haskell. It may not be as fun as writing high-level, ultra-generic code
 with advanced concepts but it puts haskell on the same ground as the other
 languages and shows its productivity boost in real-life situations.
 
