@@ -65,9 +65,26 @@ For small open-source projects, CI is free, so it'd be a shame not to use it.
 
 Working with Hakyll was really interesting. It gave me the confirmation that
 the best way to discover a new library is via its types. Thinking about types
-upfront allowed me to solve problems with a very limited cognitive overhead.
+upfront allowed me to solve problems with a very limited cognitive load.
 Thinking only about types allowed me to combine lots of unknown bricks
 whithout forcing me to think about how they worked. When working with a new
 codebase, it's priceless.
 
-<!-- TODO Wrap up-->
+I tend to only reason about types. It allows me to quickly combine functions
+from the standard lib (with help from Hakyll), and care about writing code
+only at the end of the process. When working with Scala and JS, I often resort
+to reading the libraries' source code to understand how to use them. With
+haskell, types are sufficient.
+
+Regular unit tests are still very useful but not as important as in languages
+with weaker type systems. Property-based tests with Quickcheck are really
+interesting and deserve a dedicated article, but I'm not yet comfortable
+enough with it.
+
+##Wrap up
+
+Writing "Real World" haskell (as opposed as playing with one-liners for code
+challenges) is really interesting and helps me a lot to get more effective
+with Haskell. It may not be as funny as writing high-level, ultra-generic code
+with advanced concepts but it puts haskell on the same ground as the other
+languages and shows its productivity boost in real-life situations.
