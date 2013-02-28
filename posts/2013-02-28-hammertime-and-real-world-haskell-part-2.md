@@ -88,3 +88,10 @@ challenges) is really interesting and helps me a lot to get more effective
 with Haskell. It may not be as funny as writing high-level, ultra-generic code
 with advanced concepts but it puts haskell on the same ground as the other
 languages and shows its productivity boost in real-life situations.
+
+## Hammertime
+
+I've been able to put some work in Hammertime. It now has and a clean code
+layout and unit tests, a working CLI parser and provides simple reports. I'm
+working on turning `-Wall` on during the compiling phase. There are just a few
+warnings left.
