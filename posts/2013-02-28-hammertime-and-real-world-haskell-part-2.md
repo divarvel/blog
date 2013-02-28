@@ -16,7 +16,7 @@ As I said in the previous post, I had some trouble finding the good source
 code layout, especially with respect to tests integration. Well, I've finally
 managed to do that, but I wish there were better guidelines. As of now, there
 is no "right way" of structuring code in a cabal setup. On one hand it
-provides flexibility. On the other it's a bit difficult for newcomers to
+provides flexibility. On another hand it's a bit difficult for newcomers to
 decide how to structure their files.
 
 Some people in the Haskell community think default project layout could be
