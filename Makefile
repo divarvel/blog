@@ -17,7 +17,7 @@ publish: build
 	find . -maxdepth 1 ! -name _source ! -name . ! -name .git -exec mv '{}' _source/ \;
 	cp -r _source/_site/* ./
 	rm -fr _source
-	git commit -am "Publish" || true
+	git add -A . && git commit -m "Publish" || true
 	rm -fr ./*
 	git push pub publish:master
 	git checkout master
