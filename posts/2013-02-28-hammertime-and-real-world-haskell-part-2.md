@@ -1,7 +1,7 @@
 ---
 title: Hammertime and real world haskell, part 2
 author: Clement Delafargue
-tags: fp, haskell
+tags: fp, haskell, hammertime
 ---
 
 After a few months of complete inactivity on Hammertime, I've finally found
