@@ -6,7 +6,7 @@ tags: exherbo, postgresql, sysadmin
 
 A few weekends, I had to play with postgreSQL on my Exherbo. The package was
 installed, but Pg needs some post-install init to run correctly. Since it's
-not handled by the exheres, you've got to a few things by yourself.
+not handled by the exheres, you've got a few things to do by yourself.
 
 This is really important as it allows you to configure everything before
 actually starting the init process.
