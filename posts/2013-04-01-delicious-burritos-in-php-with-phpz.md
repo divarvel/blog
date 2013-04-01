@@ -30,3 +30,5 @@ print_r($xs());
 The code is on github: <http://github.com/divarvel/phpz>. Enjoy :)
 
 The next step is the implementation of zygohistomorphic prepromorphisms.
+
+![PHPz + Drupal](/files/phpz-drupal.jpg)
