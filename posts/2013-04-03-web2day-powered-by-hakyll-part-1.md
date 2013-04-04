@@ -10,6 +10,8 @@ Yesterday, the site for the Web2Day 2013 was released. It's by far the
 biggest, most complex website I've built with
 [hakyll](http://jaspervdj.be/hakyll).
 
+You can see the result here: <http://web2day-nantes.org>
+
 Kudos to the team:
 
  - [Quentin Adam](http://waxzce.org)
