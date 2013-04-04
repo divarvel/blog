@@ -94,13 +94,13 @@ route $ (setExtension "html") `composeRoutes` langRoute
 #### Switching languages
 
 Assuming that the title of the pages are the same in French and English (big
-assumption, I know), I just have to remove the leading `/en` (if the page is
-in English) or add `/fr` (if the page is in French).
+assumption, I know), I just have either to remove the leading `/en` (if the page is
+in English) or to add it (if the page is in French).
 
 ### Abstracting over common structure
 
 Contributors and blog posts share the same structure: a page for every item
-and an index page which lists everything.
+and an index page which lists all items.
 
 For instance, for the contributors
 
