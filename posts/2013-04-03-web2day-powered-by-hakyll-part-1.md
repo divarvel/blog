@@ -73,7 +73,7 @@ forM_ langs $ \lang ->
     compile pandocCompiler
 ```
 
-One thing to note: the pattern isn't a string litteral anymore, so
+One thing to note: the pattern isn't a string literal anymore, so
 ``OverloadedStrings`` is not able to turn it into a `Pattern`, you have to do
 it yourself.
 
@@ -95,12 +95,12 @@ route $ (setExtension "html") `composeRoutes` langRoute
 
 Assuming that the title of the pages are the same in French and English (big
 assumption, I know), I just have to remove the leading `/en` (if the page is
-in English) or add `/en` (if the page is in French).
+in English) or add `/fr` (if the page is in French).
 
 ### Abstracting over common structure
 
 Contributors and blog posts share the same structure: a page for every item
-and an index page which lists every thing.
+and an index page which lists everything.
 
 For instance, for the contributors
 
