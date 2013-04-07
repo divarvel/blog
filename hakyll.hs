@@ -39,9 +39,10 @@ main = hakyll $ do
     create ["posts.html"] $ do
         route idRoute
         compile $ do
-            posts <- recentFirst <$> loadAll "posts/*"
+            posts <- loadAll "posts/*"
+            sorted <- recentFirst posts
             itemTpl <- loadBody "templates/postitem.html"
-            list <- applyTemplateList itemTpl postCtx posts
+            list <- applyTemplateList itemTpl postCtx sorted
             makeItem list
                 >>= loadAndApplyTemplate "templates/posts.html" allPostsCtx
                 >>= loadAndApplyTemplate "templates/default.html" allPostsCtx
@@ -51,9 +52,10 @@ main = hakyll $ do
     create ["index.html"] $ do
         route idRoute
         compile $ do
-            posts <- recentFirst <$> loadAll "posts/*"
+            posts <- loadAll "posts/*"
+            sorted <- recentFirst posts
             itemTpl <- loadBody "templates/postitem.html"
-            list <- applyTemplateList itemTpl postCtx posts
+            list <- applyTemplateList itemTpl postCtx sorted
             makeItem list
                 >>= loadAndApplyTemplate "templates/index.html" (homeCtx tags list)
                 >>= loadAndApplyTemplate "templates/default.html" (homeCtx tags list)
@@ -80,14 +82,16 @@ main = hakyll $ do
     create ["rss.xml"] $ do
         route idRoute
         compile $ do
-            posts <- take 10 . recentFirst <$> loadAllSnapshots "posts/*" "content"
-            renderRss feedConfiguration feedCtx posts
+            posts <- loadAllSnapshots "posts/*" "content"
+            sorted <- take 10 <$> recentFirst posts
+            renderRss feedConfiguration feedCtx (take 10 sorted)
 
     create ["atom.xml"] $ do
         route idRoute
         compile $ do
-            posts <- take 10 . recentFirst <$> loadAllSnapshots "posts/*" "content"
-            renderAtom feedConfiguration feedCtx posts
+            posts <- loadAllSnapshots "posts/*" "content"
+            sorted <- take 10 <$> recentFirst posts
+            renderAtom feedConfiguration feedCtx sorted
 
     -- Read templates
     match "templates/*" $ compile templateCompiler
@@ -148,9 +152,12 @@ unExternalizeUrlsWith root = withUrls unExt
   where
     unExt x = if root `isPrefixOf` x then unpack $ replace (pack root) empty (pack x) else x
 
-postList :: Tags -> Pattern -> ([Item String] -> [Item String])
+postList :: Tags
+         -> Pattern
+         -> ([Item String] -> Compiler [Item String])
          -> Compiler String
 postList tags pattern preprocess' = do
     postItemTpl <- loadBody "templates/postitem.html"
-    posts <- preprocess' <$> loadAll pattern
-    applyTemplateList postItemTpl (tagsCtx tags) posts
+    posts <- loadAll pattern
+    processed <- preprocess' posts
+    applyTemplateList postItemTpl (tagsCtx tags) processed
