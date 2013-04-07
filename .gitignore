@@ -3,3 +3,4 @@ hakyll
 *.o
 _site
 _cache
+cabal-dev
