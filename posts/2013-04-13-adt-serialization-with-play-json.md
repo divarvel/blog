@@ -50,8 +50,8 @@ implicit val shapeReads = new Reads[Shape] {
 
 implicit val shapeWrites = new Writes[Shape] {
   def writes(shape: Shape) = shape match {
-    case circle@Circle(_,_) => Json.toJson[Circle](circle)(Json.writes[Circle])
-    case poly@Polygon(_) => Json.toJson[Polygon](poly)(Json.writes[Polygon])
+    case circle: Circle => Json.toJson[Circle](circle)(Json.writes[Circle])
+    case poly: Polygon => Json.toJson[Polygon](poly)(Json.writes[Polygon])
   }
 }
 ```
