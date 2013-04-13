@@ -33,6 +33,9 @@ Since there is an isomorphism between case classes and a subset of json
 `Reads` and `Writes` instances from case classes with some macro-fu
 (props to [@mandubian](http://mandubian.com)).
 
+Mandubian helped me refactor my instances to a *pointfree-er* style which
+stresses better the combinatorial nature of the JSON API.
+
 ```scala
 implicit val pointReads = Json.reads[Point]
 implicit val pointWrites = Json.writes[Point]
@@ -42,25 +45,23 @@ However sum types are not supported by this automatic derivation, so you have
 to do it by hand:
 
 ```scala
-implicit val shapeReads = new Reads[Shape] {
-  def reads(json: JsValue) =
-    fromJson[Circle](json)(Json.reads[Circle]) orElse
-    fromJson[Polygon](json)(Json.reads[Polygon])
+implicit val shapeReads = {
+  implicit cr = Json.reads[Circle]
+  implicit pr = Json.reads[Polygon]
+  __.read[Circle].map(x => x: Shape) |
+  __.read[Polygon].map(x => x: Shape)
 }
 
-implicit val shapeWrites = new Writes[Shape] {
-  def writes(shape: Shape) = shape match {
-    case circle: Circle => Json.toJson[Circle](circle)(Json.writes[Circle])
-    case poly: Polygon => Json.toJson[Polygon](poly)(Json.writes[Polygon])
-  }
-}
+implicit val shapeWrites = Writes[Shape] { shape => shape match {
+ case circle: Circle => Json.toJson[Circle].writes(circle)
+ case poly: Polygon => Json.toJson[Polygon].writes(poly)
+} }
 ```
 
 Observe that we don't need to create implicit `Reads` and `Writes` instances
 for `Polygon` and `Circle`, since everything will be handled by `shapeReads`
-and `shapeWrites`. We directly give the generated instances to `fromJson` and
-`toJson` inside `reads` and `writes`. We could have exposed these instances to
-the outside world but they're not needed elsewhere and it would create
-overlapping instances.
+and `shapeWrites`. We directly use the generated instances inside `reads` and
+`writes`. We could have exposed these instances to the outside world but
+they're not needed elsewhere and it would create overlapping instances.
 
 Enjoy :)
