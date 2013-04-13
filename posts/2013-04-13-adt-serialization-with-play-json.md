@@ -46,10 +46,10 @@ to do it by hand:
 
 ```scala
 implicit val shapeReads = {
-  implicit cr = Json.reads[Circle]
-  implicit pr = Json.reads[Polygon]
-  __.read[Circle].map(x => x: Shape) |
-  __.read[Polygon].map(x => x: Shape)
+  val cr = Json.reads[Circle]
+  val pr = Json.reads[Polygon]
+  __.read[Circle](cr).map(x => x: Shape) |
+  __.read[Polygon](pr).map(x => x: Shape)
 }
 
 implicit val shapeWrites = Writes[Shape] { shape => shape match {
