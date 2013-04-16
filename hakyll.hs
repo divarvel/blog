@@ -53,7 +53,7 @@ main = hakyll $ do
         route idRoute
         compile $ do
             posts <- loadAll "posts/*"
-            sorted <- recentFirst posts
+            sorted <- take 10 <$> recentFirst posts
             itemTpl <- loadBody "templates/postitem.html"
             list <- applyTemplateList itemTpl postCtx sorted
             makeItem list
