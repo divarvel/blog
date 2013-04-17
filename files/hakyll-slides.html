@@ -243,7 +243,7 @@ ghc --make site.hs # compile le générateur
     ./site check</code></pre>
 </section><section class="slide level2" id="makefile---publication">
 <h1>Makefile - publication</h1>
-<pre class="sourceCode Makefile"><code class="sourceCode makefile"><span class="dv">publish:</span>
+<pre class="sourceCode Makefile"><code class="sourceCode makefile"><span class="dv">publish:</span> build
     git add .
     git stash save
     git checkout publish || git checkout --orphan publish
@@ -394,7 +394,7 @@ My awesome content</code></pre>
 <p>Dans le template :</p>
 <pre class="sourceCode html"><code class="sourceCode html">    <span class="kw">&lt;article&gt;</span>
         <span class="kw">&lt;h1&gt;</span>$title$<span class="kw">&lt;/h1&gt;</span>
-        $body
+        $body$
     <span class="kw">&lt;/article&gt;</span></code></pre>
 </section><section class="slide level2">
 
