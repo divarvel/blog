@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+  <meta name="author" content="Clément Delafargue" />
+  <title>Génération dynamique de sites statiques avec Hakyll</title>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+<link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,300' rel='stylesheet'>
+<style>
+  html { background-color: black; }
+  a { color: #FF0044; } a:hover {text-decoration: underline;}
+  footer { position: absolute; bottom: 50px; right: 50px; }
+  strong,code {color: #FF0044; } 
+  pre>code, code.sourceCode { color: #FFF; }
+  body {
+      font-family: 'Merriweather Sans', arial, sans-serif;
+      background-color: white;
+      color: white;
+      font-size: 30px;
+      background: #232326;
+  }
+
+
+  /* Transition effect */
+  section {
+      -moz-transition: left 400ms ease-in 0s;
+      -webkit-transition: left 400ms ease-in 0s;
+      -ms-transition: left 400ms ease-in 0s;
+      transition: left 400ms ease-in 0s;
+      background: #232326;
+  }
+  section { left: -150%; }
+  section[aria-selected] { left: 0; }
+  section[aria-selected] ~ section { left: +150% }
+
+  .chapter { background-color: black;}
+  .chapter h1 {line-height: 600px; vertical-align: middle; margin: 0; text-align: center; display: block}
+
+  h1,h2,h3,h4,h5,h6 {
+      font-family: 'Oswald', arial, serif;
+      margin: 20px 100px 0 100px;
+  }
+
+  h1 {
+      color: #FF0044;
+      font-size: 50px;
+      text-shadow: 0px -1px 0px #000;
+      text-align: left;
+  }
+  h2 {
+      color: #FAE50B;
+      margin-top: 10px;
+      font-size: 40px;
+      text-align: left;
+  }
+  h3,h4,h5,h6 {
+      color: #FAE50B;
+      margin-top: 10px;
+      font-size: 30px;
+      text-align: left;
+  }
+  h1.title { color: #FFFFFF; }
+  .author { color: #FF0066; }
+  .date {color: #FAE50B; }
+  footer {
+      position: absolute;
+      bottom: 50px;
+  }
+  ul {
+      margin-top: 70px;
+      font-size: 30px;
+      text-align: right;
+      border-right: 4px solid white;
+      padding-right: 40px;
+      min-width: 310px;
+      margin-left: 50px;
+      display: inline-block;
+  }
+  q, p {
+      margin: 50px auto 0 auto;
+      width: 500px;
+  }
+  q:after {content: ""}
+  q:before {content: ""}
+  q {
+      display: block;
+      margin-top: 140px;
+  }
+  video {
+      position: absolute;
+      top: 210px;
+      width: 260px;
+      left: 445px;
+      box-shadow: 0 0 10px black;
+  }
+  #arrow {
+      position: absolute;
+      top: 165px;
+      left: 460px;
+      font-size: 100px;
+      color: white;
+
+  }
+  li {list-style-type: none}
+
+  pre {
+      font-size: 18px;
+      margin: 2em;
+  }
+</style>
+</head>
+<body>
+<section>
+  <h1 class="title">Génération dynamique de sites statiques avec Hakyll</h1>
+  <footer>
+  <h2 class="author">Clément Delafargue</h2>
+  <h3 class="date">16 avril 2013</h3>
+  </footer>
+</section>
+<section class="titleslide slide level1" id="un-brin-dhistoire"><h1>Un brin d'histoire</h1></section><section class="slide level2" id="pages-perso-en-html-statique">
+<h1>Pages perso en HTML statique</h1>
+<p>Quelques pages, pas DRY, contenu en HTML</p>
+<p>Lourd, mélange contenu / présentation</p>
+</section><section class="slide level2" id="cmss-cmss-everywhere">
+<h1>CMSs, CMSs everywhere</h1>
+<p>Wordpress, dotclear, Spip, …</p>
+</section><section class="slide level2" id="le-renouveau">
+<h1>Le renouveau</h1>
+<p>Markdown =&gt; contenu plus léger</p>
+<p>Templating =&gt; keep it DRY</p>
+<p>Github pages =&gt; easy to set up</p>
+</section>
+<section class="titleslide slide level1" id="pourquoi-ça-poutre"><h1>Pourquoi ça poutre</h1></section><section class="slide level2" id="workflow">
+<h1>Workflow</h1>
+<p>Full text -&gt; <strong>developer friendly</strong> (vim, git, make, …)</p>
+<p>Contributions: pull requests</p>
+<p>Publication: scp, git, dropbox, …</p>
+</section><section class="slide level2" id="en-bonus">
+<h1>En bonus</h1>
+<ul>
+<li>cheap hosting (GH pages, S3)</li>
+<li>secure</li>
+<li>fast</li>
+</ul>
+</section><section class="slide level2" id="tout-nest-pas-rose">
+<h1>Tout n'est pas rose…</h1>
+<ul>
+<li>rigide</li>
+<li>pas adapté à tout le monde</li>
+<li>pas de composante dynamique</li>
+</ul>
+</section><section class="slide level2" id="mais-on-peut-se-débrouiller">
+<h1>… mais on peut se débrouiller</h1>
+<ul>
+<li>certains outils sont très souples</li>
+<li>un peu d'éducation, ça marche</li>
+<li>utilisation de services externes</li>
+</ul>
+</section><section class="slide level2" id="quels-outils-choisir">
+<h1>Quels outils choisir ?</h1>
+<p><strong>Ruby</strong>: jekyll, nanoc, …</p>
+<p><strong>Python</strong>: pelican, frozen flask, …</p>
+<p><strong>Node</strong>: blacksmith, …</p>
+<p><strong>Haskell</strong>: hakyll, gitit, yst, …</p>
+</section><section class="slide level2" id="hakyll">
+<h1>Hakyll</h1>
+<ul>
+<li>Haskell</li>
+<li>Multi-plateformes</li>
+<li>utilise pandoc</li>
+<li><strong>très</strong> flexible</li>
+</ul>
+</section><section class="slide level2" id="hakyll-1">
+<h1>Hakyll</h1>
+<p><a href="http://jaspervdj.be/hakyll">http://jaspervdj.be/hakyll</a></p>
+<p>Bibliothèque + DSL =&gt; build your own generator</p>
+</section>
+<section class="titleslide slide level1" id="à-lattaque"><h1>À l'attaque</h1></section><section class="slide level2" id="installation">
+<h1>Installation</h1>
+<h3 id="haskell-platform-ghc-cabal">Haskell platform (ghc + cabal)</h3>
+<p>Installe le compilo et l'outil de build / gestion de dépendances</p>
+<p><a href="http://www.haskell.org/platform/">http://www.haskell.org/platform/</a> (Gnu/Linux, MacOS, Windows)</p>
+<p>Pour windows, Mingw + MSYS en plus</p>
+</section><section class="slide level2" id="installation-1">
+<h1>Installation</h1>
+<h3 id="hakyll-2">Hakyll</h3>
+<pre><code>cabal update
+cabal install hakyll</code></pre>
+<p>(peut prendre un peu de temps)</p>
+</section><section class="slide level2" id="warming-up">
+<h1>Warming up</h1>
+<p>Crée un blog + pages statiques</p>
+<pre><code>hakyll-init blog
+cd blog
+ghc --make site.hs # compile le générateur
+./site preview # serveur HTTP + reload</code></pre>
+<p>Ne pas oublier de recompiler <code>site.hs</code> après l'avoir modifié</p>
+</section><section class="slide level2" id="makefile">
+<h1>Makefile</h1>
+<p>On n'est pas des animaux, on utilise un Makefile</p>
+<ul>
+<li>recompilation automatique après modification du haskell</li>
+<li>vidage du cache</li>
+<li>publication via git</li>
+<li>…</li>
+</ul>
+</section><section class="slide level2" id="makefile-1">
+<h1>Makefile</h1>
+<pre class="sourceCode Makefile"><code class="sourceCode makefile"><span class="dv">all:</span> build
+
+<span class="dv">build:</span> site
+    ./site build
+
+<span class="dv">site:</span> site.hs
+    ghc --make site.hs
+    ./site clean
+
+<span class="dv">preview:</span> site
+    ./site preview
+
+<span class="dv">clean:</span> site
+    ./site clean
+
+<span class="dv">check:</span> site
+    ./site check</code></pre>
+</section><section class="slide level2" id="makefile---publication">
+<h1>Makefile - publication</h1>
+<pre class="sourceCode Makefile"><code class="sourceCode makefile"><span class="dv">publish:</span>
+    git add .
+    git stash save
+    git checkout publish || git checkout --orphan publish
+    find . -maxdepth 1 ! -name &#39;.&#39; ! -name &#39;.git<span class="ch">*</span>&#39; ! -name &#39;_site&#39; <span class="ch">\</span>
+        <span class="ch">-</span><span class="bn">exec</span> rm -rf {} <span class="ch">+</span>
+    find _site -maxdepth 1 -exec mv {} . <span class="ch">\;</span>
+    rmdir _site
+    <span class="ch">-</span><span class="bn">git</span> add -A &amp;&amp; git commit -m <span class="st">&quot;Publish&quot;</span>
+    git push -f git<span class="ch">+</span>ssh<span class="ch">:</span>//my-remote publish<span class="ch">:</span>master
+    git checkout master
+    git clean -fdx
+    <span class="ch">-</span><span class="bn">git</span> stash pop</code></pre>
+</section><section class="slide level2" id="makefile---like-a-boss">
+<h1>Makefile - like a boss</h1>
+<pre><code>make clean
+make preview
+make check # détecte les liens cassés
+make publish</code></pre>
+</section><section class="slide level2" id="playing-with-hakyll">
+<h1>Playing with Hakyll</h1>
+<h3 id="concepts-de-base">Concepts de base</h3>
+<p>Ensemble de pipelines <code>Input -&gt; Output</code></p>
+<p>Matching -&gt; Route -&gt; Compilation -&gt; Injection template</p>
+<p>Templates &quot;purs&quot; (pas de logique, juste des points d'injection)</p>
+</section><section class="slide level2" id="playing-with-hakyll-1">
+<h1>Playing with Hakyll</h1>
+<h3 id="structure-de-base">Structure de base</h3>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">main ::</span> <span class="dt">IO</span> ()
+main <span class="fu">=</span> hakyll <span class="fu">$</span> <span class="kw">do</span>
+  rule_1
+  <span class="fu">…</span>
+  rule_n
+
+
+helpers</code></pre>
+</section><section class="slide level2" id="playing-with-hakyll-2">
+<h1>Playing with Hakyll</h1>
+<h3 id="static-assets">Static Assets</h3>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">match <span class="st">&quot;images/*&quot;</span> <span class="fu">$</span> <span class="kw">do</span>
+  route   idRoute
+  compile copyFileCompiler
+
+match <span class="st">&quot;css/*&quot;</span> <span class="fu">$</span> <span class="kw">do</span>
+  route   idRoute
+  compile compressCssCompiler</code></pre>
+</section><section class="slide level2" id="playing-with-hakyll-3">
+<h1>Playing with Hakyll</h1>
+<h3 id="pages-statiques">Pages statiques</h3>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">match (fromList [ <span class="st">&quot;about.rst&quot;</span> , <span class="st">&quot;contact.markdown&quot;</span> ]) <span class="fu">$</span> <span class="kw">do</span>
+  route   <span class="fu">$</span> setExtension <span class="st">&quot;html&quot;</span>
+  compile <span class="fu">$</span> pandocCompiler
+    <span class="fu">&gt;&gt;=</span> loadAndApplyTemplate <span class="st">&quot;tpl/default.html&quot;</span> defaultContext
+    <span class="fu">&gt;&gt;=</span> relativizeUrls</code></pre>
+</section><section class="slide level2" id="playing-with-hakyll-4">
+<h1>Playing with Hakyll</h1>
+<h3 id="templates">Templates</h3>
+<p>Pas de <code>route</code> -&gt; pas exposé dans le site généré</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">match <span class="st">&quot;tpl/*&quot;</span> <span class="fu">$</span> compile templateCompiler</code></pre>
+</section><section class="slide level2" id="playing-with-hakyll-5">
+<h1>Playing with Hakyll</h1>
+<h3 id="helpers">Helpers</h3>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">postCtx ::</span> <span class="dt">Context</span> <span class="dt">String</span>
+postCtx <span class="fu">=</span>
+  dateField <span class="st">&quot;date&quot;</span> <span class="st">&quot;%B %e, %Y&quot;</span> <span class="ot">`mappend`</span>
+  defaultContext
+
+<span class="ot">postList ::</span> ([<span class="dt">Item</span> <span class="dt">String</span>] <span class="ot">-&gt;</span> <span class="dt">Compiler</span> [<span class="dt">Item</span> <span class="dt">String</span>])
+         <span class="ot">-&gt;</span> <span class="dt">Compiler</span> <span class="dt">String</span>
+postList sortFilter <span class="fu">=</span> <span class="kw">do</span>
+  posts   <span class="ot">&lt;-</span> sortFilter <span class="fu">=&lt;&lt;</span> loadAll <span class="st">&quot;posts/*&quot;</span>
+  itemTpl <span class="ot">&lt;-</span> loadBody <span class="st">&quot;tpl/post-item.html&quot;</span>
+  list    <span class="ot">&lt;-</span> applyTemplateList itemTpl postCtx posts
+  <span class="fu">return</span> list</code></pre>
+</section><section class="slide level2" id="playing-with-hakyll-6">
+<h1>Playing with Hakyll</h1>
+<h3 id="posts">Posts</h3>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">match <span class="st">&quot;posts/*&quot;</span> <span class="fu">$</span> <span class="kw">do</span>
+  route <span class="fu">$</span> setExtension <span class="st">&quot;html&quot;</span>
+  compile <span class="fu">$</span> pandocCompiler
+    <span class="fu">&gt;&gt;=</span> loadAndApplyTemplate <span class="st">&quot;tpl/post.html&quot;</span>    postCtx
+    <span class="fu">&gt;&gt;=</span> loadAndApplyTemplate <span class="st">&quot;tpl/default.html&quot;</span> postCtx
+    <span class="fu">&gt;&gt;=</span> relativizeUrls</code></pre>
+</section><section class="slide level2" id="playing-with-hakyll-7">
+<h1>Playing with Hakyll</h1>
+<h3 id="archive">Archive</h3>
+<p>On peut créer des pages ex nihilo</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">create [<span class="st">&quot;archive.html&quot;</span>] <span class="fu">$</span> <span class="kw">do</span>
+  route idRoute
+  compile <span class="fu">$</span> <span class="kw">do</span>
+    <span class="kw">let</span> ctx <span class="fu">=</span>
+      field <span class="st">&quot;posts&quot;</span> (\_ <span class="ot">-&gt;</span> postList recentFirst) <span class="ot">`mappend`</span>
+      constField <span class="st">&quot;title&quot;</span> <span class="st">&quot;Archives&quot;</span>              <span class="ot">`mappend`</span>
+      defaultContext
+
+    makeItem <span class="st">&quot;&quot;</span>
+      <span class="fu">&gt;&gt;=</span> loadAndApplyTemplate <span class="st">&quot;tpl/archive.html&quot;</span> ctx
+      <span class="fu">&gt;&gt;=</span> loadAndApplyTemplate <span class="st">&quot;tpl/default.html&quot;</span> ctx
+      <span class="fu">&gt;&gt;=</span> relativizeUrls</code></pre>
+</section><section class="slide level2" id="playing-with-hakyll-8">
+<h1>Playing with Hakyll</h1>
+<h3 id="index">Index</h3>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">match <span class="st">&quot;index.html&quot;</span> <span class="fu">$</span> <span class="kw">do</span>
+  route idRoute
+  compile <span class="fu">$</span> <span class="kw">do</span>
+    <span class="kw">let</span> indexCtx <span class="fu">=</span> field <span class="st">&quot;posts&quot;</span> <span class="fu">$</span> \_ <span class="ot">-&gt;</span>
+                        postList <span class="fu">$</span> <span class="fu">fmap</span> (<span class="fu">take</span> <span class="dv">3</span>) <span class="fu">.</span> recentFirst
+
+    getResourceBody
+      <span class="fu">&gt;&gt;=</span> applyAsTemplate indexCtx
+      <span class="fu">&gt;&gt;=</span> loadAndApplyTemplate <span class="st">&quot;tpl/default.html&quot;</span> postCtx
+      <span class="fu">&gt;&gt;=</span> relativizeUrls</code></pre>
+</section><section class="slide level2" id="concepts-de-base-1">
+<h1>Concepts de base</h1>
+<h3 id="item">Item</h3>
+<p>Paire <code>(identifiant, contenu)</code></p>
+</section><section class="slide level2">
+
+<h3 id="compilateur">Compilateur</h3>
+<p>Permet de transformer un <code>Item</code>, en gérant les dépendances.</p>
+<p>Par exemple : <code>pandocCompiler</code></p>
+<p><em>Monadique</em> =&gt; traduit la nature séquentielle des compilations</p>
+</section><section class="slide level2">
+
+<h3 id="compilateur-1">Compilateur</h3>
+<p>On peut y mettre ce qu'on veut. En particulier, du shell</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">match <span class="st">&quot;assets/css/*.less&quot;</span> <span class="fu">$</span> <span class="kw">do</span>
+  route   <span class="fu">$</span> setExtension <span class="st">&quot;css&quot;</span>
+  compile <span class="fu">$</span> getResourceString <span class="fu">&gt;&gt;=</span>
+    withItemBody (unixFilter <span class="st">&quot;lessc&quot;</span> [<span class="st">&quot;-&quot;</span>,<span class="st">&quot;--yui-compress&quot;</span>,<span class="st">&quot;-O2&quot;</span>])</code></pre>
+</section><section class="slide level2">
+
+<h3 id="contexte">Contexte</h3>
+<p>Données injectées dans un template.</p>
+<p>Par exemple, <code>defaultContext</code> injecte :</p>
+<ul>
+<li>métadonnées (title, author, …)</li>
+<li>body</li>
+</ul>
+</section><section class="slide level2">
+
+<h3 id="contexte-1">Contexte</h3>
+<p>Dans le fichier :</p>
+<pre><code>---
+title: Foo bar baz
+---
+
+My awesome content</code></pre>
+<p>Dans le template :</p>
+<pre class="sourceCode html"><code class="sourceCode html">    <span class="kw">&lt;article&gt;</span>
+        <span class="kw">&lt;h1&gt;</span>$title$<span class="kw">&lt;/h1&gt;</span>
+        $body
+    <span class="kw">&lt;/article&gt;</span></code></pre>
+</section><section class="slide level2">
+
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">postCtx ::</span> <span class="dt">Context</span> <span class="dt">String</span>
+postCtx <span class="fu">=</span>
+  dateField <span class="st">&quot;date&quot;</span> <span class="st">&quot;%B %e, %Y&quot;</span> <span class="ot">`mappend`</span>
+  defaultContext</code></pre>
+<p><code>postCtx</code> extrait la date du nom de fichier et l'injecte dans le template.</p>
+<p><code>mappend</code> permet de combiner deux contextes (<code>Context</code> est un <em>monoide</em>)</p>
+</section><section class="slide level2">
+
+<p>Possibilité de construire ses propres contextes</p>
+<ul>
+<li>fonction <code>Item a -&gt; Compiler String</code></li>
+<li>données statiques</li>
+<li>fonctions (<code>$func arg$</code>)</li>
+<li>date</li>
+<li>…</li>
+</ul>
+</section><section class="slide level2" id="patterns-courants">
+<h1>Patterns courants</h1>
+<h3 id="i18n-sort-of">i18n (sort of)</h3>
+<p>Contenu séparé dans des dossiers <code>/en</code> et <code>/fr</code>.</p>
+<p>Templates en commun</p>
+<p>Langue par défaut à la racine du site généré</p>
+</section><section class="slide level2">
+
+<h3 id="i18n-sort-of-1">i18n (sort of)</h3>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">langs <span class="fu">=</span> [<span class="st">&quot;fr&quot;</span>, <span class="st">&quot;en&quot;</span>]
+defaultLang <span class="fu">=</span> <span class="st">&quot;fr&quot;</span>
+
+<span class="co">-- Enlève automatiquement le &quot;/fr&quot; en début d&#39;URL</span>
+langRoute <span class="fu">=</span> gsubRoute (defaultLang <span class="fu">++</span> <span class="st">&quot;/&quot;</span>) (<span class="fu">const</span> <span class="st">&quot;&quot;</span>)
+setHtmlLang <span class="fu">=</span> langRoute <span class="ot">`composeRoutes`</span> (setExtension <span class="st">&quot;html&quot;</span>)</code></pre>
+</section><section class="slide level2">
+
+<h3 id="i18n-sort-of-2">i18n (sort of)</h3>
+<p>Dans les routes :</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">forM_ langs (\lang <span class="ot">-&gt;</span>
+  match <span class="fu">$</span> (fromGlob <span class="fu">$</span> lang <span class="fu">++</span> <span class="st">&quot;/posts/*&quot;</span>) <span class="kw">do</span>
+    route setHtmlLang
+    compile <span class="fu">$</span> pandocCompiler
+      <span class="fu">&gt;&gt;=</span> loadAndApplyTemplate <span class="st">&quot;tpl/post.html&quot;</span>    postCtx
+      <span class="fu">&gt;&gt;=</span> loadAndApplyTemplate <span class="st">&quot;tpl/default.html&quot;</span> postCtx
+      <span class="fu">&gt;&gt;=</span> relativizeUrls
+)</code></pre>
+</section><section class="slide level2">
+
+<h3 id="disqus">Disqus</h3>
+<p>Ajouter Disqus à ses articles de blog</p>
+<p><code>tpl/disqus.html</code></p>
+<pre class="sourceCode html"><code class="sourceCode html">$body$
+<span class="kw">&lt;section</span><span class="ot"> class=</span><span class="st">&quot;disqus&quot;</span><span class="kw">&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="kw">&gt;</span>
+<span class="kw">var</span> page_url = <span class="st">&quot;$url$&quot;</span>;
+&lt;!-- Disqus stuff  --&gt;
+<span class="kw">&lt;/script&gt;</span>
+<span class="kw">&lt;/section&gt;</span></code></pre>
+</section><section class="slide level2">
+
+<h3 id="disqus-1">Disqus</h3>
+<p>Modification des règles de compilation</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">match <span class="st">&quot;posts/*&quot;</span> <span class="fu">$</span> <span class="kw">do</span>
+  route <span class="fu">$</span> setExtension <span class="st">&quot;html&quot;</span>
+  compile <span class="fu">$</span> pandocCompiler
+    <span class="fu">&gt;&gt;=</span> loadAndApplyTemplate <span class="st">&quot;tpl/post.html&quot;</span>    postCtx
+    <span class="fu">&gt;&gt;=</span> loadAndApplyTemplate <span class="st">&quot;tpl/disqus.html&quot;</span>  postCtx
+    <span class="fu">&gt;&gt;=</span> loadAndApplyTemplate <span class="st">&quot;tpl/default.html&quot;</span> postCtx
+    <span class="fu">&gt;&gt;=</span> relativizeUrls</code></pre>
+</section><section class="slide level2" id="on-peut-aller-plus-loin">
+<h1>On peut aller plus loin</h1>
+<p>GUI avec prose.io</p>
+<p><a href="http://prose.io/">http://prose.io/</a></p>
+<p>Tags pour les articles de blog</p>
+<p><a href="http://jaspervdj.be/hakyll/reference/Hakyll-Web-Tags.html">http://jaspervdj.be/hakyll/reference/Hakyll-Web-Tags.html</a></p>
+</section><section class="slide level2" id="on-peut-aller-plus-loin-1">
+<h1>On peut aller plus loin</h1>
+<p>Single page site:</p>
+<p><a href="https://github.com/divarvel/hakyll-single-page-test">https://github.com/divarvel/hakyll-single-page-test</a></p>
+</section><section class="slide level2" id="on-peut-aller-plus-loin-2">
+<h1>On peut aller plus loin</h1>
+<p>Web2day 2013: i18n, factorisation, dépendances inter-pages, génération de fichier ICS, blocs réutilisables, …</p>
+<p><a href="https://github.com/CompanyCampus/web2day2013">https://github.com/CompanyCampus/web2day2013</a></p>
+<p><a href="http://blog.clement.delafargue.name/posts/2013-04-03-web2day-powered-by-hakyll-part-1.html">http://blog.clement.delafargue.name/posts/2013-04-03-web2day-powered-by-hakyll-part-1.html</a></p>
+</section><section class="slide level2" id="bisous">
+<h1>Bisous</h1>
+<p>Source</p>
+<p><a href="https://github.com/divarvel/staticsites-talk">https://github.com/divarvel/staticsites-talk</a></p>
+<p>Version PDF</p>
+<p><a href="https://speakerdeck.com/clementd/hakyll-generation-dynamique-de-sites-statiques">https://speakerdeck.com/clementd/hakyll-generation-dynamique-de-sites-statiques</a></p>
+</section>
+<!-- {{{{ dzslides core
+#
+#
+#     __  __  __       .  __   ___  __
+#    |  \  / /__` |    | |  \ |__  /__`
+#    |__/ /_ .__/ |___ | |__/ |___ .__/ core :€
+#
+#
+# The following block of code is not supposed to be edited.
+# But if you want to change the behavior of these slides,
+# feel free to hack it!
+#
+-->
+
+<div id="progress-bar"></div>
+
+<!-- Default Style -->
+<style>
+  * { margin: 0; padding: 0; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+  details { display: none; }
+  body {
+    width: 800px; height: 600px;
+    margin-left: -400px; margin-top: -300px;
+    position: absolute; top: 50%; left: 50%;
+    overflow: hidden;
+  }
+  section {
+    position: absolute;
+    pointer-events: none;
+    width: 100%; height: 100%;
+  }
+  section[aria-selected] { pointer-events: auto; }
+  html { overflow: hidden; }
+  body { display: none; }
+  body.loaded { display: block; }
+  .incremental {visibility: hidden; }
+  .incremental[active] {visibility: visible; }
+  #progress-bar{
+    bottom: 0;
+    position: absolute;
+    -moz-transition: width 400ms linear 0s;
+    -webkit-transition: width 400ms linear 0s;
+    -ms-transition: width 400ms linear 0s;
+    transition: width 400ms linear 0s;
+  }
+  figure {
+    width: 100%;
+    height: 100%;
+  }
+  figure > * {
+    position: absolute;
+  }
+  figure > img, figure > video {
+    width: 100%; height: 100%;
+  }
+</style>
+
+<script>
+  var Dz = {
+    remoteWindows: [],
+    idx: -1,
+    step: 0,
+    slides: null,
+    progressBar : null,
+    params: {
+      autoplay: "1"
+    }
+  };
+
+  Dz.init = function() {
+    document.body.className = "loaded";
+    this.slides = $$("body > section");
+    this.progressBar = $("#progress-bar");
+    this.setupParams();
+    this.onhashchange();
+    this.setupTouchEvents();
+    this.onresize();
+  }
+  
+  Dz.setupParams = function() {
+    var p = window.location.search.substr(1).split('&');
+    p.forEach(function(e, i, a) {
+      var keyVal = e.split('=');
+      Dz.params[keyVal[0]] = decodeURIComponent(keyVal[1]);
+    });
+  // Specific params handling
+    if (!+this.params.autoplay)
+      $$.forEach($$("video"), function(v){ v.controls = true });
+  }
+
+  Dz.onkeydown = function(aEvent) {
+    // Don't intercept keyboard shortcuts
+    if (aEvent.altKey
+      || aEvent.ctrlKey
+      || aEvent.metaKey
+      || aEvent.shiftKey) {
+      return;
+    }
+    if ( aEvent.keyCode == 37 // left arrow
+      || aEvent.keyCode == 38 // up arrow
+      || aEvent.keyCode == 33 // page up
+    ) {
+      aEvent.preventDefault();
+      this.back();
+    }
+    if ( aEvent.keyCode == 39 // right arrow
+      || aEvent.keyCode == 40 // down arrow
+      || aEvent.keyCode == 34 // page down
+    ) {
+      aEvent.preventDefault();
+      this.forward();
+    }
+    if (aEvent.keyCode == 35) { // end
+      aEvent.preventDefault();
+      this.goEnd();
+    }
+    if (aEvent.keyCode == 36) { // home
+      aEvent.preventDefault();
+      this.goStart();
+    }
+    if (aEvent.keyCode == 32) { // space
+      aEvent.preventDefault();
+      this.toggleContent();
+    }
+    if (aEvent.keyCode == 70) { // f
+      aEvent.preventDefault();
+      this.goFullscreen();
+    }
+  }
+
+  /* Touch Events */
+
+  Dz.setupTouchEvents = function() {
+    var orgX, newX;
+    var tracking = false;
+
+    var db = document.body;
+    db.addEventListener("touchstart", start.bind(this), false);
+    db.addEventListener("touchmove", move.bind(this), false);
+
+    function start(aEvent) {
+      aEvent.preventDefault();
+      tracking = true;
+      orgX = aEvent.changedTouches[0].pageX;
+    }
+
+    function move(aEvent) {
+      if (!tracking) return;
+      newX = aEvent.changedTouches[0].pageX;
+      if (orgX - newX > 100) {
+        tracking = false;
+        this.forward();
+      } else {
+        if (orgX - newX < -100) {
+          tracking = false;
+          this.back();
+        }
+      }
+    }
+  }
+
+  /* Adapt the size of the slides to the window */
+
+  Dz.onresize = function() {
+    var db = document.body;
+    var sx = db.clientWidth / window.innerWidth;
+    var sy = db.clientHeight / window.innerHeight;
+    var transform = "scale(" + (1/Math.max(sx, sy)) + ")";
+
+    db.style.MozTransform = transform;
+    db.style.WebkitTransform = transform;
+    db.style.OTransform = transform;
+    db.style.msTransform = transform;
+    db.style.transform = transform;
+  }
+
+
+  Dz.getDetails = function(aIdx) {
+    var s = $("section:nth-of-type(" + aIdx + ")");
+    var d = s.$("details");
+    return d ? d.innerHTML : "";
+  }
+
+  Dz.onmessage = function(aEvent) {
+    var argv = aEvent.data.split(" "), argc = argv.length;
+    argv.forEach(function(e, i, a) { a[i] = decodeURIComponent(e) });
+    var win = aEvent.source;
+    if (argv[0] === "REGISTER" && argc === 1) {
+      this.remoteWindows.push(win);
+      this.postMsg(win, "REGISTERED", document.title, this.slides.length);
+      this.postMsg(win, "CURSOR", this.idx + "." + this.step);
+      return;
+    }
+    if (argv[0] === "BACK" && argc === 1)
+      this.back();
+    if (argv[0] === "FORWARD" && argc === 1)
+      this.forward();
+    if (argv[0] === "START" && argc === 1)
+      this.goStart();
+    if (argv[0] === "END" && argc === 1)
+      this.goEnd();
+    if (argv[0] === "TOGGLE_CONTENT" && argc === 1)
+      this.toggleContent();
+    if (argv[0] === "SET_CURSOR" && argc === 2)
+      window.location.hash = "#" + argv[1];
+    if (argv[0] === "GET_CURSOR" && argc === 1)
+      this.postMsg(win, "CURSOR", this.idx + "." + this.step);
+    if (argv[0] === "GET_NOTES" && argc === 1)
+      this.postMsg(win, "NOTES", this.getDetails(this.idx));
+  }
+
+  Dz.toggleContent = function() {
+    // If a Video is present in this new slide, play it.
+    // If a Video is present in the previous slide, stop it.
+    var s = $("section[aria-selected]");
+    if (s) {
+      var video = s.$("video");
+      if (video) {
+        if (video.ended || video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      }
+    }
+  }
+
+  Dz.setCursor = function(aIdx, aStep) {
+    // If the user change the slide number in the URL bar, jump
+    // to this slide.
+    aStep = (aStep != 0 && typeof aStep !== "undefined") ? "." + aStep : ".0";
+    window.location.hash = "#" + aIdx + aStep;
+  }
+
+  Dz.onhashchange = function() {
+    var cursor = window.location.hash.split("#"),
+        newidx = 1,
+        newstep = 0;
+    if (cursor.length == 2) {
+      newidx = ~~cursor[1].split(".")[0];
+      newstep = ~~cursor[1].split(".")[1];
+      if (newstep > Dz.slides[newidx - 1].$$('.incremental > *').length) {
+        newstep = 0;
+        newidx++;
+      }
+    }
+    this.setProgress(newidx, newstep);
+    if (newidx != this.idx) {
+      this.setSlide(newidx);
+    }
+    if (newstep != this.step) {
+      this.setIncremental(newstep);
+    }
+    for (var i = 0; i < this.remoteWindows.length; i++) {
+      this.postMsg(this.remoteWindows[i], "CURSOR", this.idx + "." + this.step);
+    }
+  }
+
+  Dz.back = function() {
+    if (this.idx == 1 && this.step == 0) {
+      return;
+    }
+    if (this.step == 0) {
+      this.setCursor(this.idx - 1,
+                     this.slides[this.idx - 2].$$('.incremental > *').length);
+    } else {
+      this.setCursor(this.idx, this.step - 1);
+    }
+  }
+
+  Dz.forward = function() {
+    if (this.idx >= this.slides.length &&
+        this.step >= this.slides[this.idx - 1].$$('.incremental > *').length) {
+        return;
+    }
+    if (this.step >= this.slides[this.idx - 1].$$('.incremental > *').length) {
+      this.setCursor(this.idx + 1, 0);
+    } else {
+      this.setCursor(this.idx, this.step + 1);
+    }
+  }
+
+  Dz.goStart = function() {
+    this.setCursor(1, 0);
+  }
+
+  Dz.goEnd = function() {
+    var lastIdx = this.slides.length;
+    var lastStep = this.slides[lastIdx - 1].$$('.incremental > *').length;
+    this.setCursor(lastIdx, lastStep);
+  }
+
+  Dz.setSlide = function(aIdx) {
+    this.idx = aIdx;
+    var old = $("section[aria-selected]");
+    var next = $("section:nth-of-type("+ this.idx +")");
+    if (old) {
+      old.removeAttribute("aria-selected");
+      var video = old.$("video");
+      if (video) {
+        video.pause();
+      }
+    }
+    if (next) {
+      next.setAttribute("aria-selected", "true");
+      var video = next.$("video");
+      if (video && !!+this.params.autoplay) {
+        video.play();
+      }
+    } else {
+      // That should not happen
+      this.idx = -1;
+      // console.warn("Slide doesn't exist.");
+    }
+  }
+
+  Dz.setIncremental = function(aStep) {
+    this.step = aStep;
+    var old = this.slides[this.idx - 1].$('.incremental > *[aria-selected]');
+    if (old) {
+      old.removeAttribute('aria-selected');
+    }
+    var incrementals = $$('.incremental');
+    if (this.step <= 0) {
+      $$.forEach(incrementals, function(aNode) {
+        aNode.removeAttribute('active');
+      });
+      return;
+    }
+    var next = this.slides[this.idx - 1].$$('.incremental > *')[this.step - 1];
+    if (next) {
+      next.setAttribute('aria-selected', true);
+      next.parentNode.setAttribute('active', true);
+      var found = false;
+      $$.forEach(incrementals, function(aNode) {
+        if (aNode != next.parentNode)
+          if (found)
+            aNode.removeAttribute('active');
+          else
+            aNode.setAttribute('active', true);
+        else
+          found = true;
+      });
+    } else {
+      setCursor(this.idx, 0);
+    }
+    return next;
+  }
+
+  Dz.goFullscreen = function() {
+    var html = $('html'),
+        requestFullscreen = html.requestFullscreen || html.requestFullScreen || html.mozRequestFullScreen || html.webkitRequestFullScreen;
+    if (requestFullscreen) {
+      requestFullscreen.apply(html);
+    }
+  }
+  
+  Dz.setProgress = function(aIdx, aStep) {
+    var slide = $("section:nth-of-type("+ aIdx +")");
+    if (!slide)
+      return;
+    var steps = slide.$$('.incremental > *').length + 1,
+        slideSize = 100 / (this.slides.length - 1),
+        stepSize = slideSize / steps;
+    this.progressBar.style.width = ((aIdx - 1) * slideSize + aStep * stepSize) + '%';
+  }
+  
+  Dz.postMsg = function(aWin, aMsg) { // [arg0, [arg1...]]
+    aMsg = [aMsg];
+    for (var i = 2; i < arguments.length; i++)
+      aMsg.push(encodeURIComponent(arguments[i]));
+    aWin.postMessage(aMsg.join(" "), "*");
+  }
+  
+  function init() {
+    Dz.init();
+    window.onkeydown = Dz.onkeydown.bind(Dz);
+    window.onresize = Dz.onresize.bind(Dz);
+    window.onhashchange = Dz.onhashchange.bind(Dz);
+    window.onmessage = Dz.onmessage.bind(Dz);
+  }
+
+  window.onload = init;
+</script>
+
+
+<script> // Helpers
+  if (!Function.prototype.bind) {
+    Function.prototype.bind = function (oThis) {
+
+      // closest thing possible to the ECMAScript 5 internal IsCallable
+      // function 
+      if (typeof this !== "function")
+      throw new TypeError(
+        "Function.prototype.bind - what is trying to be fBound is not callable"
+      );
+
+      var aArgs = Array.prototype.slice.call(arguments, 1),
+          fToBind = this,
+          fNOP = function () {},
+          fBound = function () {
+            return fToBind.apply( this instanceof fNOP ? this : oThis || window,
+                   aArgs.concat(Array.prototype.slice.call(arguments)));
+          };
+
+      fNOP.prototype = this.prototype;
+      fBound.prototype = new fNOP();
+
+      return fBound;
+    };
+  }
+
+  var $ = (HTMLElement.prototype.$ = function(aQuery) {
+    return this.querySelector(aQuery);
+  }).bind(document);
+
+  var $$ = (HTMLElement.prototype.$$ = function(aQuery) {
+    return this.querySelectorAll(aQuery);
+  }).bind(document);
+
+  $$.forEach = function(nodeList, fun) {
+    Array.prototype.forEach.call(nodeList, fun);
+  }
+
+</script>
+<!-- vim: set fdm=marker: }}} -->
+</body>
+</html>
