@@ -11,17 +11,16 @@ new:
 	@./new_post.sh
 
 publish: build
+	git add .
 	git stash save
-	git checkout publish
-	mkdir _source
-	find . -maxdepth 1 ! -name _source ! -name . ! -name .git -exec mv '{}' _source/ \;
-	cp -r _source/_site/* ./
-	rm -fr _source
-	git add -A . && git commit -m "Publish" || true
-	rm -fr ./*
-	git push pub publish:master
+	git checkout publish || git checkout --orphan publish
+	find . -maxdepth 1 ! -name '.' ! -name '.git*' ! -name '_site' -exec rm -rf {} +
+	find _site -maxdepth 1 -exec mv {} . \;
+	rmdir _site
+	git add -A && git commit -m "Publish" || true
+	git push -f git+ssh://git@push.clever-cloud.com/app_dac7568e-d269-4a05-9bb9-a118a4099fb3.git publish:master
 	git checkout master
-	git checkout -- .
+	git clean -fdx
 	git stash pop || true
 
 preview: hakyll
