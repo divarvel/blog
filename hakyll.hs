@@ -109,6 +109,7 @@ allPostsCtx =
 homeCtx :: Tags -> String -> Context String
 homeCtx tags list =
     constField "posts" list `mappend`
+    constField "title" "Index" `mappend`
     field "taglist" (\_ -> renderTagList tags) `mappend`
     defaultContext
 
