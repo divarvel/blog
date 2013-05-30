@@ -164,6 +164,10 @@ The `initramfs` file lists the needed files:
 If you use directly my code, don't forget to `make bb` to make sure the init
 file is copied at the right place.
 
+[Keruspe](http://github.com/Keruspe) helped me a lot on this part. For some
+reason, the `initramfs` file is never shown in the existing guides, and
+everybody seem to copy all the files by hand. Tedious.
+
 #### Configure your kernel
 
 The next step is quite simple.
@@ -178,6 +182,12 @@ Then go to *General setup* and configure *Initial RAM filesystem and RAM disk (
 Enter the path of your `initramfs`.
 
 Now compile your Kernel.
+
+**Make sure `CRAMFS` is set**. It made we waste a few days.
+
+If you've done something wrong, you'll hit a Kernel Panic.
+
+Don't Panic.
 
 #### Configure gummiboot
 
