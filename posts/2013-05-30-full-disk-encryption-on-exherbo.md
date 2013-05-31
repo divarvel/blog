@@ -146,12 +146,22 @@ It contains the encrypted keys, `cryptsetup` and `openssl` binaries (plus the
 needed shared libraries) and an executable named `init` which will be called.
 Its work is to unlock the partitions and launch your system init.
 
+Most distributions provide a generic `initramfs` as well as a generic kernel,
+with a tool to regenerate it. From what I've seen, those tools are based on
+[dracut]() which is a toolchain used to create initramfs. Since I knew exactly
+the commands needed to unlock the partitions, using dracut was a bit overkill.
+
 To ease things a bit, I've used `busybox` which provides a small shell and
 many core tools in a single staticly-built binary.
 
 Since copying binaries and libraries in the archive is tedious, let the kernel
 build process do it for you: in a file named `initramfs`, you just have to
 specify which files you need, where to get it and where to make it available.
+
+Unlike busybox, I wasn't able to compile static binaries for `openssl` and
+`cryptsetup`. In this case you need to walk the dependency tree by yourself
+with the `ldd` command-line utility. Don't forget that libraries (`.so` files)
+also have dependencies.
 
 Have a look at my init script, it's quite simple:
 
@@ -167,6 +177,14 @@ file is copied at the right place.
 [Keruspe](http://github.com/Keruspe) helped me a lot on this part. For some
 reason, the `initramfs` file is never shown in the existing guides, and
 everybody seem to copy all the files by hand. Tedious.
+
+TODO: reference existing guides
+TODO: reference documentation about initramfs config file
+
+The busybox script drops you to a shell if something goes wrong. This is
+tremendously helpful to inspect the contents of the initramfs (are all the
+libraries available at the right path?) and to check if everything is mounted
+correctly.
 
 #### Configure your kernel
 
