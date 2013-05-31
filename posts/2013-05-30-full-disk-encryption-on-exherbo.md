@@ -175,16 +175,29 @@ If you use directly my code, don't forget to `make bb` to make sure the init
 file is copied at the right place.
 
 [Keruspe](http://github.com/Keruspe) helped me a lot on this part. For some
-reason, the `initramfs` file is never shown in the existing guides, and
+reason, the `initramfs` file is almost never shown in the existing guides, and
 everybody seem to copy all the files by hand. Tedious.
 
-TODO: reference existing guides
 TODO: reference documentation about initramfs config file
 
 The busybox script drops you to a shell if something goes wrong. This is
 tremendously helpful to inspect the contents of the initramfs (are all the
 libraries available at the right path?) and to check if everything is mounted
 correctly.
+
+The following documents have been of great help
+
+ - <http://en.gentoo-wiki.com/wiki/Initramfs>
+ - <http://jootamam.net/howto-initramfs-image.htm>
+
+One of the few articles which mention the `initramfs_list` config file
+
+<http://landley.net/writing/rootfs-howto.html>
+
+The `initramfs_list` file is also mentionned in the kernel documentation (in
+`Documentation/filesystems/ramfs-rootfs-initramfs.txt`, section **Populating
+initramfs**
+
 
 #### Configure your kernel
 
