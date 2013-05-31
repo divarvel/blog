@@ -178,8 +178,6 @@ file is copied at the right place.
 reason, the `initramfs` file is almost never shown in the existing guides, and
 everybody seem to copy all the files by hand. Tedious.
 
-TODO: reference documentation about initramfs config file
-
 The busybox script drops you to a shell if something goes wrong. This is
 tremendously helpful to inspect the contents of the initramfs (are all the
 libraries available at the right path?) and to check if everything is mounted
