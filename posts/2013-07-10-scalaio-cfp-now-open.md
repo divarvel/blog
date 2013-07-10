@@ -27,6 +27,9 @@ Early bird tickets will be available soon, stay tuned!
 
 <http://scala.io/cfp.html>
 
+The CFP is open until **August, 25th** but try not to submit at the very end of
+the window :)
+
 We are looking for speakers willing to share their experience on building
 applications with scala or any other language, following functional
 programming techniques.
