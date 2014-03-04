@@ -45,6 +45,9 @@ However sum types are not supported by this automatic derivation, so you have
 to do it by hand:
 
 ```scala
+import play.api.libs.json._
+import play.api.libs.functional.syntax._
+
 implicit val shapeReads = {
   val cr = Json.reads[Circle]
   val pr = Json.reads[Polygon]
@@ -53,8 +56,8 @@ implicit val shapeReads = {
 }
 
 implicit val shapeWrites = Writes[Shape] { shape => shape match {
- case circle: Circle => Json.toJson[Circle].writes(circle)
- case poly: Polygon => Json.toJson[Polygon].writes(poly)
+ case circle: Circle => Json.writes[Circle].writes(circle)
+ case poly: Polygon =>  Json.writes[Polygon].writes(poly)
 } }
 ```
 
