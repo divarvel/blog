@@ -1,7 +1,7 @@
 ---
 title: Lost in string representations
 author: Clement Delafargue
-tags: haskell, bytestring, text, sting
+tags: haskell, bytestring, text, string
 ---
 
 When you start playing with haskell, handling text is simple: you use
@@ -50,9 +50,9 @@ complexity. It's unfit for serious use.
 ## Data.Text
 
 `Data.Text` is a space efficient, unboxed representation for strings (it also
-provides a lazy version, which is a list of strict chuncks). It has
+provides a lazy version, which is a list of strict chunks). It has
 extremely good space and time performance thanks to its internal
-representation and a powerfull loop fusion mechanism.
+representation and a powerful loop fusion mechanism.
 Internally, it's packed *utf16*.
 
 **It's the representation you should use for your data models**.
@@ -63,7 +63,7 @@ Internally, it's packed *utf16*.
 represents sequences of bytes and is suitable for high-performance use.
 **Unlike `Data.Text`, `Data.ByteString` does not carry any information about
 char encoding**. That's why when converting from `ByteString` to `Text`, you
-need to explicitely tell the encoding you want (and handle possible failures).
+need to explicitly tell the encoding you want (and handle possible failures).
 
 `Data.ByteString.Lazy` is the lazy version, for strings too big to fit in
 memory.
