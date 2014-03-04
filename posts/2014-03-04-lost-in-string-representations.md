@@ -77,3 +77,8 @@ care about the encoding**.
 Many thanks to [\@yoeight](http://twitter.com/yoeight),
 [\@lucasdicioccio](http://twitter.com/lucasdicioccio), and
 [\@BeRewt](http://twitter.com/berewt) for helping me out. :)
+
+For a more accurate and exhaustive breakdown of string representations, check
+out [How to pick your string library in
+Haskell](http://blog.ezyang.com/2010/08/strings-in-haskell/) by [Edward Z.
+Yang](http://ezyang.com/)
