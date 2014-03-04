@@ -9,9 +9,10 @@ When you start playing with haskell, handling text is simple: you use
 goodness of `Data.List` and for a while, you're in a happy place. The first
 version of hammertime used strings everywhere.
 
-Soon enough, you learn that `String` is `O(n)` and you use `Data.Text` as a
-drop-in replacement, and for a while, you're in a sort of happy place.
-Hammertime now uses `Data.Text` for its internal data representations.
+Soon enough, you learn many operations on `String` are `O(n)` and you use
+`Data.Text` as a drop-in replacement, and for a while, you're in a sort of
+happy place.  Hammertime now uses `Data.Text` for its internal data
+representations.
 
 I was there, until I've started playing more seriously with
 [Snap](http://snapframework.com). Snap is a Haskell web framework and has
