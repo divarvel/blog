@@ -7,7 +7,7 @@ tags: haskell, bytestring, text, sting
 When you start playing with haskell, handling text is simple: you use
 `String`, which is just an alias for `[Char]`. You have access to the full
 goodness of `Data.List` and for a while, you're in a happy place. The first
-version of hammertime used strings everyhere.
+version of hammertime used strings everywhere.
 
 Soon enough, you learn that `String` is `O(n)` and you use `Data.Text` as a
 drop-in replacement, and for a while, you're in a sort of happy place.
@@ -20,7 +20,7 @@ roughly the same vision as play framework, with the nice addition of the
 focused on HTTP, doesn't come with a gazillion persistence layers and is quite
 simple to understand (I'm looking at you, yesod). Like play, it's based on
 iteratee IO (but this will change in 1.0 to `io-streams`, which will bring a
-simpler interface and a performance boost). Its template system, Heist is
+simpler interface and a performance boost). Its template system, Heist, is
 really nice (it's inspired from [liftweb](http://liftweb.net)'s template system, which was my
 favourite part of this framework. Yes I've used (and liked) liftweb. Don't
 judge me).
@@ -31,12 +31,12 @@ Back to the main story. Even though I use `Data.Text` in my models, snap uses
 `Data.ByteString` for the data you extract from requests (path fragments,
 query string parameters, form data). For more fun, `Data.UUID` only parses
 `String` or `Data.ByteString.Lazy`. For even more fun, `Aeson`, the JSON library
-only handles `Data.Text` in its AST (but is cabable to (de)serialize (from)to
+only handles `Data.Text` in its AST (but is capable to (de)serialize (from)to
 `Data.ByteString`.
 
 ![](/files/haskell-why-so-complicated.jpg "why so complicated")
 
-Turns out every representation has its uses (except `String`. Don't use
+Turns out every representation has its uses (Except `String`. Don't use
 `String` outside of [1HaskellADay](http://twitter.com/1haskelladay)
 one-liners).
 
@@ -71,4 +71,4 @@ To sum up: **`Data.Text` for readable, encoded text**. **`Data.ByteString` for
 high-performance, binary, transfer**.
 
 Many thanks to [@yoeight](http://twitter.com/yoeight) and
-[@lucasdicioccio](http://twitter.com/lucasdicioccio) for helping me out :)
+[@lucasdicioccio](http://twitter.com/lucasdicioccio) for helping me out. :)
