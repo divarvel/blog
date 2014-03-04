@@ -1,11 +1,11 @@
 all: build
 
-build: hakyll
-	./hakyll build
+build: site
+	./site build
 
-hakyll: hakyll.hs
-	ghc --make hakyll.hs
-	./hakyll clean
+site: site.hs
+	ghc --make site.hs
+	./site clean
 
 new:
 	@./new_post.sh
@@ -23,8 +23,8 @@ publish: build
 	git clean -fdx
 	git stash pop || true
 
-preview: hakyll
-	./hakyll preview -p 9000
+preview: site
+	./site preview -p 9000
 
 clean: hakyll
-	./hakyll clean
+	./site clean
