@@ -74,6 +74,6 @@ To sum up: **`Data.Text` for readable text with a known encoding**.
 **`Data.ByteString` for high-performance, binary, transfer where you don't
 care about the encoding**.
 
-Many thanks to [@yoeight](http://twitter.com/yoeight),
-[@lucasdicioccio](http://twitter.com/lucasdicioccio), and
-[@BeRewt](http://twitter.com/berewt) for helping me out. :)
+Many thanks to [\@yoeight](http://twitter.com/yoeight),
+[\@lucasdicioccio](http://twitter.com/lucasdicioccio), and
+[\@BeRewt](http://twitter.com/berewt) for helping me out. :)
