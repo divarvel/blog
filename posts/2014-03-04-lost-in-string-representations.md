@@ -61,15 +61,18 @@ Internally, it's packed *utf16*.
 
 `Data.ByteString` is a strict, immutable representation for binary data. It
 represents sequences of bytes and is suitable for high-performance use.
-**Unlike `Data.Text`, it's not suitable for Unicode data**.
+**Unlike `Data.Text`, `Data.ByteString` does not carry any information about
+char encoding**. That's why when converting from `ByteString` to `Text`, you
+need to explicitely tell the encoding you want (and handle possible failures).
 
 `Data.ByteString.Lazy` is the lazy version, for strings too big to fit in
 memory.
 
 ## TL;DR
 
-To sum up: **`Data.Text` for readable, encoded text**. **`Data.ByteString` for
-high-performance, binary, transfer**.
+To sum up: **`Data.Text` for readable text with a known encoding**.
+**`Data.ByteString` for high-performance, binary, transfer where you don't
+care about the encoding**.
 
 Many thanks to [@yoeight](http://twitter.com/yoeight) and
 [@lucasdicioccio](http://twitter.com/lucasdicioccio) for helping me out. :)
