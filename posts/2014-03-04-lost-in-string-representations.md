@@ -65,6 +65,7 @@ represents sequences of bytes and is suitable for high-performance use.
 `Data.ByteString.Lazy` is the lazy version, for strings too big to fit in
 memory.
 
+## TL;DR
 
 To sum up: **`Data.Text` for readable, encoded text**. **`Data.ByteString` for
 high-performance, binary, transfer**.
