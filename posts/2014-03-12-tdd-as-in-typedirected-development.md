@@ -1,7 +1,7 @@
 ---
 title: TDD, as in Type-Directed Development
 author: Clement Delafargue
-tags: tdd type-safety
+tags: tdd, type-safety
 ---
 
 I gave a talk about Type-Directed Development at the [Human Talks
@@ -22,8 +22,9 @@ of reasoning based on types and assess specifically what it provides.
 Lastly, I'll show how to complement Type-Directed Development with Test-Driven
 Development to specify with tests what's left after laying out the types.
 
-[Here are the slides](/files/type-dd.pdf)
 
+<iframe width="700" height="600" src="/files/embedder.html#type-dd.html" />
 
+[Slides in PDF](/files/type-dd.pdf)
 
 
