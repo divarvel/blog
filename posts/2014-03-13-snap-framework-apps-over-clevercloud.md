@@ -37,17 +37,22 @@ Take note of the git remote URL, you'll need it later.
 Create a new git repository, and put this in a file named `package.json`:
 
 ```json
-    {
-      "name" : "my-snap-app",
-      "version" : "0.1.0",
-      "scripts" : {
-          "start": "./my-snap-app -p 8080 --proxy=X_FORWARDED_FOR --no-access-log"
-      }
-    }
+{
+  "name" : "my-snap-app",
+  "version" : "0.1.0",
+  "scripts" : {
+    "start": "./my-snap-app -p 8080 --proxy=X_FORWARDED_FOR --no-access-log"
+  }
+}
 ```
+
 Make sure to put in the repo your snap binary (found in `/.cabal-sandbox/bin/` after a
 successful `cabal install`), the `site_key.txt` file and the `snaplets`
 directory which contains configuration files.
+
+The binary must be a 64-bit linux binary. If you're not on a 64-bit linux
+system, you have to cross-compile it, or use a monstruously dirty solution
+like Boot2Docker if you feel adventurous.
 
 Make sure **not to include** the `log` directory.
 
