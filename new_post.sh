@@ -2,7 +2,8 @@
 
 date_pattern=`date "+%Y-%m-%d"`-
 
-read -r -p "Post name > "
+echo -n "Post name > "
+read -r REPLY
 title=${REPLY}
 clean_title=`echo $title | tr "[:upper:]" "[:lower:]"]` #Lower Case
 clean_title=`echo $clean_title | iconv -f utf-8 -t ascii//translit` #Remove accents
