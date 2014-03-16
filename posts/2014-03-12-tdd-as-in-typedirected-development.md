@@ -23,7 +23,7 @@ Lastly, I'll show how to complement Type-Directed Development with Test-Driven
 Development to specify with tests what's left after laying out the types.
 
 
-<iframe width="700" height="600" src="/files/embedder.html#type-dd.html" />
+<iframe width="700" height="600" src="/files/embedder.html#type-dd.html" allowfullscreen />
 
 [Slides in PDF](/files/type-dd.pdf)
 
