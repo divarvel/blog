@@ -11,7 +11,7 @@ automatically (primary keys, foreign keys, `not null` constraints).
 The code is on github: <https://github.com/divarvel/jdbt>
 
 You only have to describe the schema of your data in a concise language, and
-jdbt automatically add implicit constraints and generate full SQL output.
+jdbt automatically adds implicit constraints and generate full SQL output.
 
 jDbT automatically adds a primary key if there is none explicitely declared.
 It also detects foreign references, assumes that columns are not nullable by
