@@ -10,6 +10,11 @@ automatically (primary keys, foreign keys, `not null` constraints).
 
 The code is on github: <https://github.com/divarvel/jdbt>
 
+## Disclaimer
+
+jdbt **does not** check the integrity of the model you describe. It is to be
+used as a convenient tool to generate your schema. Don't rely too much on it.
+
 You only have to describe the schema of your data in a concise language, and
 jdbt automatically adds implicit constraints and generate full SQL output.
 
