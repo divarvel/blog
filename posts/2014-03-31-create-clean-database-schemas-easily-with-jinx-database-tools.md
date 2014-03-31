@@ -18,9 +18,9 @@ used as a convenient tool to generate your schema. Don't rely too much on it.
 You only have to describe the schema of your data in a concise language, and
 jdbt automatically adds implicit constraints and generate full SQL output.
 
-jDbT automatically adds a primary key if there is none explicitely declared.
+jDbT automatically adds a primary key if there is none explicitly declared.
 It also detects foreign references, assumes that columns are not nullable by
-default and allow a concise syntax for nullability, unicity contraints and enums.
+default and allow a concise syntax for nullability, unicity constraints and enums.
 
 For now, it outputs SQL (postgresql-compliant) and dot. I plan to add support
 for play evolution scripts, haskell and scala records, and even dummy data to
@@ -51,7 +51,7 @@ respectively `member_id` and `team_id`, both of type `uuid` as primary keys.
 
 For `member_team.member_id` and  `member_team.team_id`, jdbt detects that they
 are foreign keys, so it infers their type as `uuid` and adds a foreign
-contraint.
+constraint.
 
 
     jdbt schema.yml > schema.sql
