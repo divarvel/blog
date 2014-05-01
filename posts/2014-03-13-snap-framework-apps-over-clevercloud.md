@@ -51,7 +51,7 @@ successful `cabal install`), the `site_key.txt` file and the `snaplets`
 directory which contains configuration files.
 
 The binary must be a 64-bit linux binary. If you're not on a 64-bit linux
-system, you have to cross-compile it, or use a monstruously dirty solution
+system, you have to cross-compile it, or use a monstrously dirty solution
 like Boot2Docker if you feel adventurous.
 
 Make sure **not to include** the `log` directory.
@@ -98,7 +98,7 @@ system. Clever cloud does this automatically with everything your application
 outputs to `stdout` and `stderr` .
 
 Moreover, an industrialized deployment process deploys fresh version of the
-code everytime, and all the local changes are lost. That's why logging to
+code every time, and all the local changes are lost. That's why logging to
 files is bad practice.
 
 Sort of fortunately, snap does log to `stderr` when it can't find the log
