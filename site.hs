@@ -19,7 +19,7 @@ main = hakyll $ do
         compile compressCssCompiler
 
     -- Copy Files
-    match "files/*" $ do
+    match "files/**" $ do
         route   idRoute
         compile copyFileCompiler
 
