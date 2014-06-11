@@ -109,15 +109,21 @@ safely ignore it.</del>
 ``stderr`` or ``-`` (for ``stdout``) to ``--error-log`` or
 ``--access-log``.</ins>
 
-#### HAproxy log spamming
+#### <del>HAproxy</del><ins>Monitoring</ins> log spamming
 
-In front of all the Clever Cloud scalers is HAproxy, which does the load
+ <del>In front of all the Clever Cloud scalers is HAproxy, which does the load
 balancing and the fail-over. To make sure the applications are really running
-and responding, HAproxy does a regular TCP check. Unfortunately, snap can't
-really handle it and logs an error. **It's not a big problem, as HAproxy still
-counts the application as alive**. However, it tends to spam the logs a bit. I
-don't have a solution for this yet. Maybe a more experienced snap user knows
-how to deal with this.
+and responding, HAproxy does a regular TCP check.</del> <ins>All applications
+on Clever Cloud are monitored (it allows Clever Cloud to automatically restart
+applications when they crash). The monitoring system periodically does a
+simple TCP check (it opens a TCP connection with the app, then closes it right
+away).</ins>
+
+Unfortunately, snap can't really handle it and logs an error. **It's not a big
+problem, as <del>HAproxy</del><ins>the moritoring system</ins> still counts
+the application as alive**. However, it tends to spam the logs a bit. I don't
+have a solution for this yet. Maybe a more experienced snap user knows how to
+deal with this.
 
 
 ## Wrap up
