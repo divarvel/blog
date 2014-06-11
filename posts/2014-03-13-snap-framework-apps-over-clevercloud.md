@@ -78,7 +78,7 @@ The `-p 8080` is there to instruct snap to listen on port `8080` (required by
 clever-cloud).
 
 Since the application is behind a reverse proxy, you need to set
-`--proxy=X_FORWARDED_FOR` to have access to the clients' IP addresses (else it
+`--proxy=X_Forwarded_For` to have access to the clients' ip addresses (else it
 would take the address of the reverse proxy).
 
 Lastly, it's clever-cloud responsibility to store the access logs, so you
@@ -101,9 +101,13 @@ Moreover, an industrialized deployment process deploys fresh version of the
 code every time, and all the local changes are lost. That's why logging to
 files is bad practice.
 
-Sort of fortunately, snap does log to `stderr` when it can't find the log
+ <del>Sort of fortunately, snap does log to `stderr` when it can't find the log
 location (default: `./log`). While displaying a big, scary warning. You can
-safely ignore it.
+safely ignore it.</del>
+
+ <ins>You can tell snap to log to ``stdout`` or to ``stderr``, by passing
+``stderr`` or ``-`` (for ``stdout``) to ``--error-log`` or
+``--access-log``.</ins>
 
 #### HAproxy log spamming
 

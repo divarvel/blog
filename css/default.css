@@ -96,3 +96,12 @@ body>footer {
 .figure .caption {
     font-style: italic;
 }
+
+ins {
+    text-decoration: none;
+}
+
+ins::before {
+    font-weight: bold;
+    content: ">> ";
+}
