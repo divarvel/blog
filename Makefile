@@ -1,11 +1,14 @@
 all: build
 
-build: site
-	./site build
+cabal.sandbox.config:
+	cabal sandbox init --sandbox=../hakyll-sandbox
 
-site: site.hs
-	ghc --make site.hs
-	./site clean
+build: dist/build/blog/blog
+	./dist/build/blog/blog build
+
+dist/build/blog/blog: Main.hs cabal.sandbox.config
+	cabal build
+	./dist/build/blog/blog clean
 
 new:
 	@./new_post.sh
@@ -23,8 +26,9 @@ publish: build
 	git clean -fdx
 	git stash pop || true
 
-preview: site
-	./site preview -p 9000
 
-clean: hakyll
-	./site clean
+preview: dist/build/blog/blog
+	./dist/build/blog/blog preview -p 9000
+
+clean: dist/build/blog/blog
+	./dist/build/blog/blog clean

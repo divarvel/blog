@@ -4,3 +4,5 @@ site
 _site
 _cache
 cabal-dev
+dist
+cabal.sandbox.config
