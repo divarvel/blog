@@ -4,8 +4,8 @@ author: Clement Delafargue
 tags: roland garros, company campus
 ---
 
-I worked on a fun project with [Company Campus](companycamp.us) for the French
-Open Roland Garros.
+I worked on a fun project with [Company Campus](http://companycamp.us) for the
+French Open Roland Garros.
 
 The goal was to let people play Pong on the Suzanne Langlen court giant
 screen.
