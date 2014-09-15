@@ -4,7 +4,7 @@ author: Clement Delafargue
 tags: adainitiative, code of conduct
 ---
 
-Code of Conducts are an important part of making conferences safe for everyone
+Codes of Conduct are an important part of making conferences safe for everyone
 to attend. That's why I've pushed it for
 [scala.io](http://scala.io/code-of-conduct.html), why I've set up one for my
 office <https://github.com/companycampus/policies> and why I've publicly asked
