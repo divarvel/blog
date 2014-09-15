@@ -27,7 +27,7 @@ To help, you can:
   their conferences by tweeting something along these lines: 
 
 
-> I donated to the Ada Initiative http://supportada.org?campaign=lambda b/c I want @theOfficialACM events to publicize their Anti Harassment Policy
+> I donated to @adainitiative http://supportada.org?campaign=lambda b/c I want @theOfficialACM events to publicize their Anti Harassment Policy #lambda4ada
 
 
 For more information, please check [Tim's article](http://tim.dreamwidth.org).
