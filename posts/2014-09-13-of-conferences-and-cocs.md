@@ -19,8 +19,9 @@ Of course, just having a code of conduct is not enough. Conferences need to
 publicize their CoCs to really make them useful.
 
 That's why I'm taking part with [Tim Chevalier](http://tim.dreamwidth.org/1856739.html),
-[Adam Foltzer](http://tim.dreamwidth.org/1856828.html), Eric Meritt and Chung-shieh
-(Ken) Shan in a challenge. There are two goals: raise **$4096** for the Ada
+[Adam Foltzer](http://tim.dreamwidth.org/1856828.html), Eric Meritt and
+[Chung-shieh (Ken) Shan](http://conway.bostoncoop.net/~ccshan/wiki/blog/posts/lambda4ada/)
+in a challenge. There are two goals: raise **$4096** for the Ada
 Initiative, and call on the ACM to publicize and implement their
 anti-harassment policy in all of their conferences.
 
