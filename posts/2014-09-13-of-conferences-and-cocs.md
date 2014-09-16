@@ -35,4 +35,4 @@ To help, you can:
 > I donated to @adainitiative http://supportada.org?campaign=lambda b/c I want @theOfficialACM events to publicize their Anti Harassment Policy #lambda4ada
 
 
-For more information, please check [Tim's article](http://tim.dreamwidth.org).
+For more information, please check [Tim's article](http://tim.dreamwidth.org/1856739.html).
