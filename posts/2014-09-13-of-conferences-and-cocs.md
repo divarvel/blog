@@ -4,6 +4,11 @@ author: Clement Delafargue
 tags: adainitiative, code of conduct
 ---
 
+<p>
+<a href="https://supportada.org/?campaign=lambda"><img src="https://adainitiative.org/wp-content/uploads/2014/08/donate_red_small.png" width="185" height="54" alt="Donation button" /></a><br />
+<a href="https://supportada.org/?campaign=lambda"><img src="https://adainitiative.org/counters/2014counter-lambda.svg" width="400" alt="Donate to the Ada Initiative"></a>
+</p>
+
 Codes of Conduct are an important part of making conferences safe for everyone
 to attend. That's why I've pushed it for
 [scala.io](http://scala.io/code-of-conduct.html), why I've set up one for my
