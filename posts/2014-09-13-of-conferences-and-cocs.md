@@ -4,6 +4,18 @@ author: Clement Delafargue
 tags: adainitiative, code of conduct
 ---
 
+## Edit 2014-09-22
+
+The fund raising went quite well, the orginal goal of $4096 was reached in
+about 5 hours. The goal was stretched to $8192 and then $10000 before the end
+of the challenge. No news from
+[@theOfficialACM](https://twitter.com/theOfficialACM) though.
+
+Thank you to everyone who's donated, whatever the amount, and thank you to
+everyone who helped us publicize this action.
+
+## Original article
+
 <p>
 <a href="https://supportada.org/?campaign=lambda"><img src="https://adainitiative.org/wp-content/uploads/2014/08/donate_red_small.png" width="185" height="54" alt="Donation button" /></a><br />
 <a href="https://supportada.org/?campaign=lambda"><img src="https://adainitiative.org/counters/2014counter-lambda.svg" width="400" alt="Donate to the Ada Initiative"></a>
