@@ -9,7 +9,7 @@ tags: adainitiative, code of conduct
 The fund raising went quite well, the orginal goal of $4096 was reached in
 about 5 hours. The goal was stretched to $8192 and then $10000 before the end
 of the challenge. No news from
-[@theOfficialACM](https://twitter.com/theOfficialACM) though.
+[\@theOfficialACM](https://twitter.com/theOfficialACM) though.
 
 Thank you to everyone who's donated, whatever the amount, and thank you to
 everyone who helped us publicize this action.
