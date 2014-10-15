@@ -1,7 +1,7 @@
 ---
 title: TDD, as in Type-Directed Development
 author: Clement Delafargue
-tags: tdd, type-safety
+tags: tdd, type-safety, talk
 ---
 
 I gave a talk about Type-Directed Development at the [Human Talks

@@ -1,7 +1,7 @@
 ---
 title: Static sites and Hakyll talk
 author: Clement Delafargue
-tags: hakyll
+tags: hakyll, talk
 ---
 
 Yesterday I've made a talk about static site generation with Hakyll.
