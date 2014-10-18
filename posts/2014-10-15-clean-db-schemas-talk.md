@@ -5,7 +5,7 @@ tags: talk, sql, database
 ---
 
 I gave a quick talk about DB schemas yesterday during the October Human Talks
-session.
+session as well as during <bdx.io>
 
 ## tl;dr:
 
@@ -17,12 +17,10 @@ session.
  - don't fear joins because of MySQL poor implementation
  - be consistent in PKs and FKs naming
  - fields should be not null by default
+ - avoid deleting rows
  - use enums
  - use the expressive types available in PGSQL
  - give jDbT a try: <https://github.com/divarvel/jdbt>
-
-[François Guillaume](https://twitter.com/fgribreau) added an interesting point: in normal operation, don't
-actually delete data, mark it deleted instead.
 
 <iframe width="700" height="600" src="/files/embedder.html#db-schemas.html" allowfullscreen />
 
