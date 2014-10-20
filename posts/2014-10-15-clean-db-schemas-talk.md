@@ -5,7 +5,7 @@ tags: talk, sql, database
 ---
 
 I gave a quick talk about DB schemas yesterday during the October Human Talks
-session as well as during <bdx.io>
+session as well as during [BDX I/O](http://bdx.io)
 
 ## tl;dr:
 
