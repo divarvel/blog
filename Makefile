@@ -13,7 +13,7 @@ dist/build/blog/blog: Main.hs cabal.sandbox.config
 new:
 	@./new_post.sh
 
-publish: build
+publish:
 	git add .
 	git stash save
 	git checkout publish || git checkout --orphan publish
