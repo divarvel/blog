@@ -55,10 +55,10 @@ implicit val shapeReads = {
   __.read[Polygon](pr).map(x => x: Shape)
 }
 
-implicit val shapeWrites = Writes[Shape] { shape => shape match {
+implicit val shapeWrites = Writes[Shape] {
  case circle: Circle => Json.writes[Circle].writes(circle)
  case poly: Polygon =>  Json.writes[Polygon].writes(poly)
-} }
+}
 ```
 
 Observe that we don't need to create implicit `Reads` and `Writes` instances
