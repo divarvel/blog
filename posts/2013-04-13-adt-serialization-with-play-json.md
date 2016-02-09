@@ -31,7 +31,7 @@ For a quick refresher on typeclasses:
 Since there is an isomorphism between case classes and a subset of json
 (homogeneous lists, and a few more restrictions), Play-JSON is able to derive
 `Reads` and `Writes` instances from case classes with some macro-fu
-(props to [@mandubian](http://mandubian.com)).
+(props to [\@mandubian](http://mandubian.com)).
 
 Mandubian helped me refactor my instances to a *pointfree-er* style which
 stresses better the combinatorial nature of the JSON API.
