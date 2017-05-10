@@ -80,7 +80,7 @@ When it's done for the two partitions, you can delete the plain keys.
 
 You can unlock the partitions now:
 
-    openssl aes-256-cbc -d -in /path/to/key.inc | \
+    openssl aes-256-cbc -d -in /path/to/key.enc | \
     cryptsetup [--allow-discards] --key-file=- luksOpen <device> <name>
 
 If you have a SSD, you may want to use `--allow-discards`. It creates an
