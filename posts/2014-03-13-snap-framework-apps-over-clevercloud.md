@@ -4,6 +4,18 @@ author: Clement Delafargue
 tags: haskell, clever-cloud, PaaS
 ---
 
+## This blog post is out of date
+
+Clever Cloud now has [native support for haskell
+applications](https://www.clever-cloud.com/doc/haskell/haskell/).  Any
+*stack*-based application will be compiled and launched automatically on Clever
+Cloud.
+
+You can watch [how to deploy a scotty app on Clever
+Cloud](https://www.youtube.com/watch?v=TnmNoPJdQvk&t=11s).
+
+You can still read the original article below.
+
 Even though my comfort zone, professionally, is Scala + Play Framework for web
 applications, I really like Haskell. For some reason, I had never written web
 apps in Haskell before last week. The Haskell web landscape has three main
