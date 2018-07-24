@@ -42,7 +42,7 @@ signature <signature>    # allows to check the macaroon validated
 
 In practice, when verifying a macaroon, you provide a list of verifiers
 (roughly `Caveat -> IO (Either VerifierError ())`, with `data VerifierError = Unrelated | Error String`). Each verifier is then applied to each caveat, and
-validation succeeds if every caveat has least one verifier completing
+validation succeeds if every caveat has at least one verifier completing
 successfully. Most verifiers (called _exact verifiers_) just look for
 exact strings. For instance, if you're hitting the `route1` endpoint,
 the corresponding verifier will just match the exact string `endpoint = route1`.
