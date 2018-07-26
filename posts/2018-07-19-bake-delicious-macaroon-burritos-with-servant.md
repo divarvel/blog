@@ -201,9 +201,11 @@ about middlewares.
 
 ## Why middlewares are not enough
 
-The concept of _middleware_ is common along web frameworks and web servers,
-it's famously present in [Express](TODO), as well as in [WAI](TODO). Play
-Framework has similar concepts, called _filters_ and _action builders_.
+The concept of _middleware_ is common along web
+frameworks and web servers, it's famously present in
+[Express](http://expressjs.com/en/guide/using-middleware.html), as well as in
+[WAI](http://hackage.haskell.org/package/wai-3.2.1.2/docs/Network-Wai.html#t:Middleware).
+Play Framework has similar concepts, called _filters_ and _action builders_.
 
 Middlewares typically work by inspecting a request, then either short-circuit
 or pass the request (sometimes modified) to the rest of the application.
