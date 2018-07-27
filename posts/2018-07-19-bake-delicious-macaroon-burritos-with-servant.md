@@ -188,7 +188,7 @@ data PartiallyValidatedMacaroon = PartiallyValidatedMacaroon
   }
 ```
 
-The last piece is about verifying the remaining macaroons while staying secure
+The last piece is about verifying the remaining caveats while staying secure
 by default. To do that, we give a way to annotate handlers with verifiers, and
 we match those verifiers against the remaining caveats to let the request go
 through, or reject it. The key of being secured by default is to force this
@@ -263,7 +263,7 @@ By default, handlers live in the `Handler` monad. It provides `IO`
 capabilities, as well as error capabilities. Servant allows you to write
 handlers in another monad, as long as you provide a way to go from your monad
 to the `Handler` monad. To do that, you can use `hoistServer` and provide a
-a function of type `forall a. MyMonad -> Handler a`.
+function of type `forall a. MyMonad -> Handler a`.
 
 In practice, all of the handlers live in `ReaderT Config Handler`, so we provide
 a `ReaderT Config Handler a -> Handler a` transformation (more or less
