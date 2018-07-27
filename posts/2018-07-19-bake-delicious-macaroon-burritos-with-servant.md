@@ -396,13 +396,13 @@ mtl-style monad transformers. But that's a story for another day.
 I've been using haskell as my main language for less than two months, and at
 some point I really felt I was out of my depth there. Thankfully, I always had
 humans, GHC and hlint to watch my back. Special thanks to
-[@Raveline](https://twitter.com/Raveline) and
-[@alpmestan](https://twitter.com/alpmestan) who helped me navigate MTL and
+[\@Raveline](https://twitter.com/Raveline) and
+[\@alpmestan](https://twitter.com/alpmestan) who helped me navigate MTL and
 Servant.
 
 Servant's use of natural tranformations to add features to handlers is vastly
 superior to what I've used in other frameworks where the main abstraction is
-`Request -> Request`. You can use the type system to its full extent whithout
+`Request -> Request`. You can use the type system to its full extent without
 having to shoehorn things into request objects.
 
 Using haskell full-time is even better than I expected. I've learned a lot,
