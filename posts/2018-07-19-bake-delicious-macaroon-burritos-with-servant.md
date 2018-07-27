@@ -55,7 +55,7 @@ This gives macaroons two interesting properties:
 
 - you can freely add any caveat to a macaroon, as it renders it _less_
   powerful.
-- macaroons validation works in reverse compared to common intution: a
+- macaroons validation works in reverse compared to common intuition: a
   macaroon with no restrictions is almighty: you need to be careful when
   creating a macaroon, but when you validate one, there is no risk of
   forgetting to check something, since the checklist is embedded in the
