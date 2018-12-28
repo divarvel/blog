@@ -19,7 +19,7 @@ can get complicated.
 
 Let's consider a small user management API, protected by `basic auth`:
 
-```haskell
+```
 /
 └─ users/
    ├─• GET
@@ -46,7 +46,7 @@ type UserAPI =
   :<|> Delete '[JSON] NoContent
 ```
 
-Extracting clients for this API can look like that
+Extracting clients for this API can look like that:
 
 ```haskell
 listUsersClient :: BasicAuthData
@@ -131,9 +131,9 @@ editUserClient'' auth userId userData =
   ($ userData) . editUser . ($ userId) . withUser $ newClient auth
 ```
 
-You can also use a lambda if you're allergic to sections (eg replace `($
-userId)` with `(\e -> e userId)`). It's still tedious, but at least it keeps
-parameters application close to where they're defined.
+You can also use a lambda if you're allergic to sections (replace `($ userId)`
+with `(\e -> e userId)`). It's still tedious, but at least it keeps parameters
+application close to where they're defined.
 
 Another solution is to use `RecordWildCards`.
 
@@ -148,15 +148,15 @@ editUserClientWithWildCards auth userId userData =
 ```
 
 This also prevents the parameters from going too far, but I find it quite
-verbose. The URL structure is a bit lost, I think.
+verbose. There is little syntactic noise, but I think it obscures the URL
+structure.
 
 Thankfully, we can still improve on building routes with function application.
-While right-to-left composition is a great choice in many cases (and don't
-get me started on why everyone uses `>>=` instead of the clearly superior
-`=<<`), in that case, following the URL more closely seems better. Also, as
-much as I love abusing sections in the pursuit of η-reduction, `($ userId)`
-is not particularly readable. That being said, using lambdas is a definite
-no-no, so we'll add a few helpers.
+While right-to-left composition is a great choice in many cases [^1], in
+this context, following the URL more closely seems better. Also, as much as
+I love abusing sections in the pursuit of η-reduction, `($ userId)` is not
+particularly readable. That being said, using lambdas is a definite no-no,
+so we'll add a few helpers.
 
 Since manually passing `BasicAuthData` everywhere is tedious, we'll apply
 *Entreprise FP Patterns* and use a `Reader` to handle this. While we're at
@@ -175,7 +175,7 @@ type Application a = forall m. (MonadReader ApplicationEnv m, MonadIO m) => m a
 
 -- | Helper managing the client creation for us, as well
 runClient :: (UsersClient -> ClientM a)
-            -> Application (Either ServantError a)
+          -> Application (Either ServantError a)
 runClient f = do
   ApplicationEnv{..} <- ask
   liftIO $ runClientM (f $ newClient auth) clientEnv
@@ -207,3 +207,11 @@ editUserIO userId userData = runWithAuth $
 In the codebase I am working on, I went with a `>>>` / `withParam` combo,
 and I am quite happy with the result. Maybe the same could be achieved with
 lenses, but I have not tried it yet.
+
+I really like the way everything comes together nicely when you have found
+the right way to combine values. The experience of refactoring haskell code,
+especially with hlint by my side hasn't been matched in any other language
+for now.
+
+[^1]: Don't get me started on why everyone uses `>>=` instead of the clearly
+  superior `=<<`
