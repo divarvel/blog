@@ -13,123 +13,168 @@ implemented with servant-server as well as external services (currently, PipeDri
 
 While just using servant-server is quite pleasant, raw servant-client use can get complicated.
 
-Let's consider a simple example:
-
-TODO output of debugLayout.
+Let's consider a small user management API, protected by `basic auth`.
 
 ```haskell
-type UserEndpoints =
-       Get '[JSON] User
-  :<|> ReqBody '[JSON] UserData :> Put '[JSON] User
+/
+└─ users/
+   ├─• GET
+   ├─• POST
+   └─ :user_id /
+      ├─• GET
+      ├─• PUT
+      └─• DELETE
+```
 
-type UserAPI = "users" :>
+Transcribed in the servant DSL, we get:
+
+```haskell
+type API = BasicAuth "user-management" User :> UsersAPI
+
+type UsersAPI = "users" :>
        Get '[JSON] [User]
-  :<|> ReqBody '[JSON] UserData :> Post '[JSON] User
-  :<|> Capture "user_id" UserId :> UserEndpoints
+  :<|> ReqBody '[JSON] UserData :> Post '[JSON] NoContent
+  :<|> Capture "user_id" UserId :> UserAPI
 
-type API = RequireMacaroon :> UserAPI
-
-api :: Proxy API
-api = Proxy
+type UserAPI =
+       Get '[JSON] User
+  :<|> ReqBody '[JSON] UserData :> Put '[JSON] NoContent
+  :<|> Delete '[JSON] NoContent
 ```
 
 Extracting clients for this API can look like that
 
 ```haskell
-listUsers :: AuthenticatedRequest RequireMacaroon
+listUsersClient :: BasicAuthData
           -> ClientM [User]
-listUsers auth =
-  let (lu :<|> _) :<|> _ = client api auth
+listUsersClient auth =
+  let lu :<|> _ = client api auth
   in lu
 
-editUser :: AuthenticatedRequest RequireMacaroon
+editUserClient :: BasicAuthData
          -> UserId
          -> UserData
          -> ClientM [User]
-editUser auth userId =
-  let (_ :<|> _ :<|> ues) = client api auth
-      (_ :<|> eu) = ues userId
+editUserClient auth userId =
+  let _ :<|> _ :<|> ue = client api auth
+      _ :<|> eu :<|> _ = ue userId
   in eu
 ```
 
-This not very pleasant to read or write: the pattern matching needed to extract endpoints generates quite a lot of syntactic noise, and you need to apply parameters here and there to get access to the inner values.
+This not very pleasant to read or write: the pattern matching needed to
+extract endpoints generates quite a lot of syntactic noise, and you need to
+apply parameters here and there to get access to the inner values.
 
-Fortunately, [servant-generic](todo) lets you avoid all this tedious pattern-matching and can generate records containing all the endpoints.
+Fortunately, [servant-generic](todo) lets you avoid all this tedious
+pattern-matching and can generate records containing all the endpoints.
 
-For the API we've seen above, we could declare the accompanying records, with some generic magic sprinkled on top of it:
+For the API we've seen above, we could declare the accompanying records,
+with some generic magic sprinkled on top of it:
 
 ```haskell
-type APIClient = AuthenticatedRequest RequireMacaroon
+type APIClient = BasicAuthData
               -> UserClient
 
-data UserClient
-  = UserClient
+data UsersAPIClient = UserClient
   { listUsers :: ClientM [User]
-  , addUser   :: UserData -> ClientM User
-  , withUser  :: UserId -> UserEndpointsClient
+  , addUser   :: UserData -> ClientM NoContent
+  , withUser  :: UserId -> UsersAPIClient
   }
-  deriving GHC.Generic
+  deriving stock GHC.Generic
+  deriving anyclass SOP.Generic
+
+instance (Client ClientM UsersAPI ~ client)
+  => ClientLike client UsersAPIClient
+
+data UserAPIClient = UserAPIClient
+  { getUser  :: ClientM User
+  , editUser :: UserData -> ClientM NoContent
+  }
+  deriving stock GHC.Generic
   deriving anyclass SOP.Generic
 
 instance (Client ClientM UserAPI ~ client)
-  => ClientLike client UserClient
-
-data UserEndpointsClient
-  = UserEndpointsClient
-  { getUser  :: ClientM User
-  , editUser :: UserData -> ClientM User
-  }
-  deriving GHC.Generic
-  deriving anyclass SOP.Generic
-
-instance (Client ClientM UserEndpoints ~ client)
-  => ClientLike client UserEndpointsClient
+  => ClientLike client UserAPIClient
 ```
 
 With all that done, you can get a client and call stuff with it:
 
 ```haskell
 newClient :: APIClient
-newClient = mkClient $ client @API Proxy
+newClient = mkClient $ client api
 
-getUserIO :: ClientMacaroon -> UserId -> IO User
-getUserIO macaroon userId =
-  let UserClient{..} = newClient $ mkAuthReq macaroon
-      UserEndpointsClient{..} = withUser userId
-  in runClient $ getUser
+listUserClient' :: BasicAuthData -> ClientM [User]
+listUserClient' auth = listUsers $ newClient auth
+
+editUserClient' :: BasicAuthData
+                -> UserId -> UserData
+                -> ClientM NoContent
+editUserClient' auth userId userData =
+  editUser (withUser (newClient auth) userId) userData
 ```
 
-Well… it's a bit better than previously, but not *way* better. Instead of using `RecordWildCards`, we could use function composition instead.
+Well… it's a bit better than previously, but not *way* better. `listUserClient'` is not too bad,
+but for `editUserClient'`, it's quite hard to read (and come up with). See how `userId` and `userData`
+are far from `withUser` and `editUser`? It only gets worse with bigger routes.
+
+With a little trick, we can fix that:
 
 ```haskell
-getUserIO' :: ClientMacaroon -> UserId -> IO User
-getUserIO' macaroon userId =
-  runClient .
-  getUser .
-  (\ue -> ue userId) . -- or ($ userId) if you're lambda-intolerant
-  withUser .
-  newClient $ mkAuthReq macaroon
+editUserClient'' :: BasicAuthData
+                -> UserId -> UserData
+                -> ClientM NoContent
+editUserClient'' auth userId userData =
+  ($ userData) . editUser . ($ userId) . withUser $ newClient auth
 ```
 
-Still tedious, and with deep routes with multiple captured parameters, it gets worse. I still like the idea of chaining functions, as it resembles how the URI is built.
+You can also use a lambda if you're allergic to sections (eg replace `($
+userId)` with `(\e -> e userId)`). It's still tedious, but at least it
+keeps parameters application close to where they're defined.
 
-While right-to-left composition is a great choice in many cases (and don't get me started on why everyone uses `>>=` instead of the clearly superior `=<<`), in that case, following the URL more closely seems better. Also, as much as I love abusing sections in the pursuit of η-reduction, `($ userId)` is not particularly readable. That being said, using lambdas is a definite no-no, so we'll add a few helpers.
-
+Another solution is to use `RecordWildCards`.
 
 ```haskell
--- | Instead of passing the macaroon explicitly, we're
--- taking it as a dependency.
-type Application a = ReaderT ClientMacaroon IO a
+editUserClientWithWildCards :: BasicAuthData
+                            -> UserId -> UserData
+                            -> ClientM NoContent
+editUserClientWithWildCards auth userId userData =
+    let UsersAPIClient{..} = newClient auth
+        UserAPIClient{..} = withUser userId
+    in editUser userData
+```
+
+This also prevents the parameters from going too far, but I find it quite verbose.
+The URL structure is a bit lost, I think.
+
+Thankfully, we can still improve on building routes with function application.
+While right-to-left composition is a great choice in many cases (and don't
+get me started on why everyone uses `>>=` instead of the clearly superior
+`=<<`), in that case, following the URL more closely seems better. Also, as
+much as I love abusing sections in the pursuit of η-reduction, `($ userId)`
+is not particularly readable. That being said, using lambdas is a definite
+no-no, so we'll add a few helpers.
+
+Since manually passing `BasicAuthData` everywhere is tedious, we'll apply *Entreprise FP Patterns*
+and use a `Reader` to handle this. While we're at it, we can also get a `ClientEnv` from the reader
+and actually run the request.
+
+```haskell
+data ApplicationEnv = ApplicationEnv
+  { auth :: BasicAuth
+  , env :: ClientEnv
+  }
+
+-- | Instead of passing BasicAuthData explicitly, we're
+-- taking it as a dependency, as well as the HTTP client environment
+-- (base URL, HTTP client manager, cookies, …)
+type Application a = forall m. (MonadReader ApplicationEnv m, MonadIO m) => m a
 
 -- | Helper managing the client creation for us, as well
--- as constructing an @AuthenticatedRequest@ with the 
--- macaroon retrieved from the environment.
--- Don't pay too much attention to the implementation
-runWithAuth :: (UserClient -> ClientM a)
-            -> Application a
-runWithAuth f = do
-  client <- asks (newClient . mkAuthReq)
-  liftIO . runClient . f $ client
+runClient :: (UsersClient -> ClientM a)
+            -> Application (Either ServantError a)
+runClient f = do
+  ApplicationEnv{..} <- ask
+  liftIO $ runClientM (f $ newClient auth) clientEnv
 
 -- | This helper is there purely to improve readability.
 -- We could also define other versions with different arities
@@ -137,13 +182,24 @@ runWithAuth f = do
 -- work as well
 withParam :: a -> (a -> b) -> b
 withParam = flip ($)
-
-editUserIO'' :: UserId -> UserData -> Application User
-editUserIO'' userId userData = runWithAuth $
-    withUser >>> withParam userId >>> editUser >>> withParam userData
-    -- We could also completely forego @withParam@ with the backquote trick
-    -- This is definitely shorter, but arguably less readable
-    -- (`withUser` userId) >>> (`editUser` userData)
 ```
 
-If you ask me, it's a bit easier on the eye.
+With all this done, and thanks to `(>>>)` from `Control.Category`,
+we can improve readability:
+
+```haskell
+editUserIO :: UserId -> UserData -> Application User
+editUserIO userId userData = runWithAuth $
+    withUser >>> withParam userId >>> editUser >>> withParam userData
+
+    -- We could also completely forego @withParam@ with the backquote trick.
+    -- This is definitely shorter, but arguably less readable
+    -- (`withUser` userId) >>> (`editUser` userData)
+
+    -- If you're not allergic to dollar sections, it reads quite well.
+    -- withUser >>> ($ userId) >>> editUser >>> ($ userData)
+```
+
+In the codebase I am working on, I went with a `>>>` / `withParam` combo, and
+I am quite happy with the result. Maybe the same could be achieved with lenses,
+but I have not tried it yet.
