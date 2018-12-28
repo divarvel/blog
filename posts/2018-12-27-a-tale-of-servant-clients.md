@@ -1,7 +1,7 @@
 ---
 title: A tale of servant clients
 author: Clement Delafargue
-tags: haskell, servant
+tags: haskell, servant, fretlink
 ---
 
 At Fretlink, we use
