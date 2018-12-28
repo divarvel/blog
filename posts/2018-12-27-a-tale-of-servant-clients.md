@@ -4,16 +4,20 @@ author: Clement Delafargue
 tags: haskell, servant
 ---
 
-At Fretlink, we use [Servant](ToDo) *a lot*. All of our haskell webservices
-are written using servant-server, which is a pure joy to use (see my post on
-[macaroon-based auth](TODO)).
+At Fretlink, we use
+[Servant](https://haskell-servant.readthedocs.io/en/stable/) *a
+lot*. All of our haskell webservices are written using servant-server,
+which is a pure joy to use (see my post on [macaroon-based
+auth](http://blog.clement.delafargue.name/posts/2018-07-19-bake-delicious-macaroon-burritos-with-servant.html)).
 
-In addition to servant-server, we also use servant-client, to query the services
-implemented with servant-server as well as external services (currently, PipeDrive).
+In addition to servant-server, we also use servant-client, to query the
+services implemented with servant-server as well as external services
+(currently, PipeDrive).
 
-While just using servant-server is quite pleasant, raw servant-client use can get complicated.
+While just using servant-server is quite pleasant, raw servant-client use
+can get complicated.
 
-Let's consider a small user management API, protected by `basic auth`.
+Let's consider a small user management API, protected by `basic auth`:
 
 ```haskell
 /
@@ -65,10 +69,9 @@ This not very pleasant to read or write: the pattern matching needed to
 extract endpoints generates quite a lot of syntactic noise, and you need to
 apply parameters here and there to get access to the inner values.
 
-Fortunately, [servant-generic](todo) lets you avoid all this tedious
-pattern-matching and can generate records containing all the endpoints.
+Fortunately, servant supports generic derivation for clients.
 
-For the API we've seen above, we could declare the accompanying records,
+For the API we've seen above, we can declare the accompanying records,
 with some generic magic sprinkled on top of it:
 
 ```haskell
@@ -80,8 +83,8 @@ data UsersAPIClient = UserClient
   , addUser   :: UserData -> ClientM NoContent
   , withUser  :: UserId -> UsersAPIClient
   }
-  deriving stock GHC.Generic
-  deriving anyclass SOP.Generic
+  deriving stock GHC.Generic -- (from GHC.Generics)
+  deriving anyclass SOP.Generic -- (from Generics.SOP)
 
 instance (Client ClientM UsersAPI ~ client)
   => ClientLike client UsersAPIClient
@@ -90,8 +93,8 @@ data UserAPIClient = UserAPIClient
   { getUser  :: ClientM User
   , editUser :: UserData -> ClientM NoContent
   }
-  deriving stock GHC.Generic
-  deriving anyclass SOP.Generic
+  deriving stock GHC.Generic -- (from GHC.Generics)
+  deriving anyclass SOP.Generic -- (from Generics.SOP)
 
 instance (Client ClientM UserAPI ~ client)
   => ClientLike client UserAPIClient
@@ -113,8 +116,9 @@ editUserClient' auth userId userData =
   editUser (withUser (newClient auth) userId) userData
 ```
 
-Well… it's a bit better than previously, but not *way* better. `listUserClient'` is not too bad,
-but for `editUserClient'`, it's quite hard to read (and come up with). See how `userId` and `userData`
+Well… it's a bit better than previously, but not *way*
+better. `listUserClient'` is not too bad, but for `editUserClient'`, it's
+quite hard to read (and come up with). See how `userId` and `userData`
 are far from `withUser` and `editUser`? It only gets worse with bigger routes.
 
 With a little trick, we can fix that:
@@ -128,8 +132,8 @@ editUserClient'' auth userId userData =
 ```
 
 You can also use a lambda if you're allergic to sections (eg replace `($
-userId)` with `(\e -> e userId)`). It's still tedious, but at least it
-keeps parameters application close to where they're defined.
+userId)` with `(\e -> e userId)`). It's still tedious, but at least it keeps
+parameters application close to where they're defined.
 
 Another solution is to use `RecordWildCards`.
 
@@ -143,8 +147,8 @@ editUserClientWithWildCards auth userId userData =
     in editUser userData
 ```
 
-This also prevents the parameters from going too far, but I find it quite verbose.
-The URL structure is a bit lost, I think.
+This also prevents the parameters from going too far, but I find it quite
+verbose. The URL structure is a bit lost, I think.
 
 Thankfully, we can still improve on building routes with function application.
 While right-to-left composition is a great choice in many cases (and don't
@@ -154,9 +158,9 @@ much as I love abusing sections in the pursuit of η-reduction, `($ userId)`
 is not particularly readable. That being said, using lambdas is a definite
 no-no, so we'll add a few helpers.
 
-Since manually passing `BasicAuthData` everywhere is tedious, we'll apply *Entreprise FP Patterns*
-and use a `Reader` to handle this. While we're at it, we can also get a `ClientEnv` from the reader
-and actually run the request.
+Since manually passing `BasicAuthData` everywhere is tedious, we'll apply
+*Entreprise FP Patterns* and use a `Reader` to handle this. While we're at
+it, we can also get a `ClientEnv` from the reader and actually run the request.
 
 ```haskell
 data ApplicationEnv = ApplicationEnv
@@ -200,6 +204,6 @@ editUserIO userId userData = runWithAuth $
     -- withUser >>> ($ userId) >>> editUser >>> ($ userData)
 ```
 
-In the codebase I am working on, I went with a `>>>` / `withParam` combo, and
-I am quite happy with the result. Maybe the same could be achieved with lenses,
-but I have not tried it yet.
+In the codebase I am working on, I went with a `>>>` / `withParam` combo,
+and I am quite happy with the result. Maybe the same could be achieved with
+lenses, but I have not tried it yet.
