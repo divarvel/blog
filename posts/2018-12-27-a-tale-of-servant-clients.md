@@ -208,6 +208,10 @@ In the codebase I am working on, I went with a `>>>` / `withParam` combo,
 and I am quite happy with the result. Maybe the same could be achieved with
 lenses, but I have not tried it yet.
 
+This article uses servant clients as an example, but it could have been the
+same with any library. In the end, we're composing functions, no more, no
+less.
+
 I really like the way everything comes together nicely when you have found
 the right way to combine values. The experience of refactoring haskell code,
 especially with hlint by my side hasn't been matched in any other language
