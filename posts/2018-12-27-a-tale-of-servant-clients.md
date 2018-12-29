@@ -217,5 +217,10 @@ the right way to combine values. The experience of refactoring haskell code,
 especially with hlint by my side hasn't been matched in any other language
 for now.
 
+Special thanks to [\@haitlah](https://twitter.com/haitlah) and
+[\@am\_i\_tom](https://twitter.com/am_i_tom)_ for their feedback, to
+[\@raveline](https://twitter.com/raveline) for pairing with me, and to
+[\@ptit\_fred](https://twitter.com/ptit_fred) for making all of this possible.
+
 [^1]: Don't get me started on why everyone uses `>>=` instead of the clearly
   superior `=<<`
