@@ -100,7 +100,9 @@ instance (Client ClientM UserAPI ~ client)
   => ClientLike client UserAPIClient
 ```
 
-With all that done, you can get a client and call stuff with it:
+With all that done, you can turn our first client into records, with
+`mkClient`. Instead of extracting calls through pattern matching, we
+can use record accessors.
 
 ```haskell
 newClient :: APIClient
