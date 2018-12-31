@@ -106,8 +106,8 @@ With all that done, you can get a client and call stuff with it:
 newClient :: APIClient
 newClient = mkClient $ client api
 
-listUserClient' :: BasicAuthData -> ClientM [User]
-listUserClient' auth = listUsers $ newClient auth
+listUsersClient' :: BasicAuthData -> ClientM [User]
+listUsersClient' auth = listUsers $ newClient auth
 
 editUserClient' :: BasicAuthData
                 -> UserId -> UserData
@@ -125,8 +125,8 @@ With a little trick, we can fix that:
 
 ```haskell
 editUserClient'' :: BasicAuthData
-                -> UserId -> UserData
-                -> ClientM NoContent
+                 -> UserId -> UserData
+                 -> ClientM NoContent
 editUserClient'' auth userId userData =
   ($ userData) . editUser . ($ userId) . withUser $ newClient auth
 ```
@@ -221,6 +221,10 @@ Special thanks to [\@haitlah](https://twitter.com/haitlah) and
 [\@am\_i\_tom](https://twitter.com/am_i_tom)_ for their feedback, to
 [\@raveline](https://twitter.com/raveline) for pairing with me, and to
 [\@ptit\_fred](https://twitter.com/ptit_fred) for making all of this possible.
+
+A [complete code
+example](https://gist.github.com/divarvel/61c00a023a7fed71c676898188994fd6)
+is available.
 
 [^1]: Don't get me started on why everyone uses `>>=` instead of the clearly
   superior `=<<`
