@@ -173,6 +173,10 @@ insecure by default.
 
 ## Deferred validation
 
+*This is out of date, I've found a way to discharge all macaroons in one go. I've
+kept it in the article, but it's not used anymore. I instead use a closure taking
+the remaining verifiers and handling the macaroon check.*
+
 What we want is to validate what we can in the auth handler, while waiting for
 more context provided by the endpoint. This gives rise to what we can call
 deferred validation.
