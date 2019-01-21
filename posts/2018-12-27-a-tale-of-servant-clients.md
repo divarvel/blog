@@ -173,11 +173,12 @@ data ApplicationEnv = ApplicationEnv
 -- | Instead of passing BasicAuthData explicitly, we're
 -- taking it as a dependency, as well as the HTTP client environment
 -- (base URL, HTTP client manager, cookies, …)
-type Application a = forall m. (MonadReader ApplicationEnv m, MonadIO m) => m a
+type Application m = (MonadReader ApplicationEnv m, MonadIO m)
 
 -- | Helper managing the client creation for us, as well
-runClient :: (UsersClient -> ClientM a)
-          -> Application (Either ServantError a)
+runClient :: Application m
+          => (UsersClient -> ClientM a)
+          -> m (Either ServantError a)
 runClient f = do
   ApplicationEnv{..} <- ask
   liftIO $ runClientM (f $ newClient auth) clientEnv
@@ -194,7 +195,7 @@ With all this done, and thanks to `(>>>)` from `Control.Category`,
 we can improve readability:
 
 ```haskell
-editUserIO :: UserId -> UserData -> Application User
+editUserIO :: Application m => UserId -> UserData -> m User
 editUserIO userId userData = runWithAuth $
     withUser >>> withParam userId >>> editUser >>> withParam userData
 
