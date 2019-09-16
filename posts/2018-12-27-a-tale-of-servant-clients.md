@@ -4,6 +4,10 @@ author: Clement Delafargue
 tags: haskell, servant, fretlink
 ---
 
+## This blog post is about an outdated servant version
+
+Please have a look a this [updated post](../posts/2019-09-10-a-new-tale-of-servant-clients.html) instead
+
 At Fretlink, we use
 [Servant](https://haskell-servant.readthedocs.io/en/stable/) *a
 lot*. All of our haskell webservices are written using servant-server,
