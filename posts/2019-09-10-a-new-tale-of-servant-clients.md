@@ -134,7 +134,7 @@ bit more what's going on behind the scenes.
 
 You may think this is all magic, as Servant relies _heavily_ on type families,
 which hide the "actual" types you're dealing with. Fear not, we can see
-precisely what's happening with `:!kind`. If you want to follow along, you can
+precisely what's happening with `:kind!`. If you want to follow along, you can
 download a [working example](../files/servant-client.hs) (it's a stack executable
 file, if you run it, it will drop you in a GHCI session with everything in scope).
 
