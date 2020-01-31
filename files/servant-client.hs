@@ -75,5 +75,26 @@ f // f' = f >>> fromServant >>> f'
      -> a -> c
 (/:) = flip
 
+type UsersAPI' = UsersAPI (AsClientT ClientM)
+
+-- helper that generates the `UsersAPI` record and lets
+-- you apply a function on it
+runAuth :: BasicAuthData
+        -> (UsersAPI' -> ClientM a)
+        -> ClientM a
+runAuth auth f =
+  let usersAPI = fromServant $ client @API Proxy auth
+  in f usersAPI
+
+-- example of how you can declare a request, thanks to
+-- `runAuth` (note that you could use `MonadReader` instead
+-- of passing `BasicAuthData` directly
+updateUser :: BasicAuthData
+           -> UserId
+           -> UserData
+           -> ClientM NoContent
+updateUser auth uid payload =
+  runAuth auth $ withUser /: uid // putUser /: payload
+
 main :: IO ()
 main = putStrLn "hi"
