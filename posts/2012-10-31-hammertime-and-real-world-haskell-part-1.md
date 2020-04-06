@@ -33,9 +33,9 @@ can help me in a more mundane task.
 I intend to **track my work on hammertime on this blog** to write about **how
 real world haskell development compares to other, mainstream workflows**.
 
-##Development environment
+## Development environment
 
-###Build tool
+### Build tool
 
 Most of the time I just load a ``.hs`` file from ``ghci`` and I get running.
 This time, I've put up a cabal setup, just to keep track of the dependencies
@@ -71,7 +71,7 @@ must admit I'm a bit put off by how they're integrated in cabal. Again, I miss
 Cabal is able to provide all of that, but not out of the box.
 
 
-###Playing with the code
+### Playing with the code
 
 I don't really like IDEs for lots of reasons (cf [IDEs are a language
 smell](http://www.recursivity.com/blog/2012/10/28/ides-are-a-language-smell/))
@@ -103,7 +103,7 @@ I use ``pointfree`` from time to time to refactor lambdas into a more elegant
 style. I'm quite cautious with this tool because it can produce cryptic
 formulations, but from time to time it's useful.
 
-###Documentation
+### Documentation
 
 Once again, it's quite the same for haskell or scala or JS, I just browse the
 reference websites when I want to have precise info on some part of the API.
@@ -125,7 +125,7 @@ good vision of their process in end-to-end case studies.
 
 I just wish they explained how to package Haskell software with cabal.
 
-##Wrap up
+## Wrap up
 
 Apart from the problems with cabal, developing in Haskell is a nice
 experience. ``ghci`` and *hoogle* are making me insanely more productive when

@@ -9,9 +9,9 @@ the time to get back on it. These last weeks, I have also played *a lot* with
 Hakyll. Writing some Haskell gave me the material needed for the part 2 of my
 "Real World Haskell" series. Hence this post.
 
-##Build environment. Again.
+## Build environment. Again.
 
-###Cabal layout
+### Cabal layout
 As I said in the previous post, I had some trouble finding the good source
 code layout, especially with respect to tests integration. Well, I've finally
 managed to do that, but I wish there were better guidelines. As of now, there
@@ -25,7 +25,7 @@ useful too (see <http://www.yesodweb.com/blog/2012/09/project-templates>)
 I took inspiration from the [Lens package](https://github.com/ekmett/lens) and
 asked for advice on `#haskell`. Now Hammertime has a reasonably clean layout.
 
-###Tests
+### Tests
 
 It was on the top of my todo list, so I took the time to integrate tests in
 the build environment.
@@ -48,7 +48,7 @@ have to manually add the tests to the test suite.
 I've not used Quickcheck a lot for now and I think it will deserve its own
 blog post.
 
-###Continuous Integration
+### Continuous Integration
 
 Once hammertime had its brand new test suite, the first thing I did was to
 setup CI. I've been impressed by the ease of use of [Travis
@@ -61,7 +61,7 @@ evening and on Wednesday morning it was in production.
 
 For small open-source projects, CI is free, so it'd be a shame not to use it.
 
-##Thought process
+## Thought process
 
 Working with Hakyll was really interesting. It gave me the confirmation that
 the best way to discover a new library is via its types. Thinking about types
@@ -81,7 +81,7 @@ with weaker type systems. Property-based tests with Quickcheck are really
 interesting and deserve a dedicated article, but I'm not yet comfortable
 enough with it.
 
-##Wrap up
+## Wrap up
 
 Writing "Real World" haskell (as opposed to playing with one-liners for code
 challenges) is really interesting and helps me a lot to get more effective
