@@ -26,7 +26,7 @@ You should read the following with [the documentation](http://hackage.haskell.or
 [hammertime's main](https://github.com/divarvel/hammertime/blob/master/src/Hammertime/Main.hs)
 in tabs somewhere.
 
-##Data structures
+## Data structures
 
 The first step is to model what the user asked with a data structure. For
 hammertime, the user can tell:
@@ -58,12 +58,12 @@ The underscores in the name fields is because of name conflicts. Haskell's
 records are quite annoying when it comes to namespacing.
 The `deriving (Show)` is not crucial but quite useful for debugging.
 
-##Declaring modes
+## Declaring modes
 
 The `Start`, `Stop` and `Report` actions are subcommands. `Help` and `Version`
 are triggered by flags (`-?`/`--help` and `-V`/`--version` respectively).
 
-###Report mode
+### Report mode
 
 The report mode is the easiest to declare.
 
@@ -139,7 +139,7 @@ time span used to generate the report.
 
 `setTimeSpan` updates the `Report` record with the right `TimeSpan` value.
 
-###Stop mode
+### Stop mode
 
 The `Stop` mode is a bit different. It has no argument, so we'll need to
 slightly alter the value constructed with `mode`.
@@ -175,7 +175,7 @@ dummyArg = flagArg (\_ _ -> Left "") ""
 Just to make sure we don't forget a `dummyArg` somewhere, we make it fail
 every time.
 
-###Start mode
+### Start mode
 
 The start mode is a bit more complicated, because it can take a various number
 of arguments (at least two, project and activity name, then some tags).
@@ -198,7 +198,7 @@ addTag :: Update Action
 addTag t s = Right $ s { tags = (tags s ++ [t]) }
 ```
 
-##Putting everything together
+## Putting everything together
 
 Now we have all of our submodes, we just have to put everything together (and
 add the version and help flags).

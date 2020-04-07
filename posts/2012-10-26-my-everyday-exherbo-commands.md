@@ -39,7 +39,7 @@ limited by it.
 
 Here are some commands, just to give you the look and feel of the everyday tasks.
 
-##Updating the system
+## Updating the system
 
     cave resolve -c1 -Cs -km -Km world
 

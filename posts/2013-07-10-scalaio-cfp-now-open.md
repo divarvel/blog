@@ -23,7 +23,7 @@ programming.
 
 Early bird tickets will be available soon, stay tuned!
 
-##Submit a talk
+## Submit a talk
 
 <http://scala.io/cfp.html>
 
