@@ -48,19 +48,19 @@ data UserData = UserData
 
 type API = BasicAuth "user-management" User :> ToServantApi UsersAPI
 
-data UsersAPI r
+data UsersAPI mode
   = UsersAPI
-  { getUsers :: r :- Get '[JSON] [User]
-  , postUser :: r :- ReqBody '[JSON] UserData :> Post '[JSON] NoContent
-  , withUser :: r :- Capture "user_id" UserId :> ToServantApi UserAPI
+  { getUsers :: mode :- Get '[JSON] [User]
+  , postUser :: mode :- ReqBody '[JSON] UserData :> Post '[JSON] NoContent
+  , withUser :: mode :- Capture "user_id" UserId :> ToServantApi UserAPI
   }
   deriving Generic
 
-data UserAPI r
+data UserAPI mode
   = UserAPI
-  { getUser    :: r :- Get '[JSON] User
-  , putUser    :: r :- ReqBody '[JSON] UserData :> Put '[JSON] NoContent
-  , deleteUser :: r :- Delete '[JSON] NoContent
+  { getUser    :: mode :- Get '[JSON] User
+  , putUser    :: mode :- ReqBody '[JSON] UserData :> Put '[JSON] NoContent
+  , deleteUser :: mode :- Delete '[JSON] NoContent
   }
   deriving Generic
 
