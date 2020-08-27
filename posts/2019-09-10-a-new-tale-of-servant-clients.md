@@ -43,7 +43,7 @@ data UserAPI mode
   deriving Generic
 ```
 
-The magical part here is the `r`. Choosing the `r` allows us to get a record
+The magical part here is the `mode`. Choosing the `mode` allows us to get a record
 of api types, server types, or client types: we define everything in one place
 (the records), and then instantiate their fields to what we want:
 
@@ -191,4 +191,4 @@ AsServer :- Get '[JSON] [User] :: *
 
 One last word: if the compiler complains of a mismatch between _something that
 looks like an API type_ and _something that looks like a server or a client
-type_, make sure you've not forgotten the `r :-` in your record fields :-)
+type_, make sure you've not forgotten the `mode :-` in your record fields :-)
