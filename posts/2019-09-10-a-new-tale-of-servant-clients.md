@@ -102,8 +102,9 @@ Not really satisfying.
 However, with a couple helpers, we can improve it substantially:
 
 ```haskell
-(//) :: ((m ~ AsClientT n), GenericServant r m)
-     => (a -> ToServant r m)
+(//) :: (m ~ AsClientT n)
+     => GenericServant routes m
+     => (a -> ToServant routes m)
      -> (routes m -> b)
      -> (a -> b)
 f // f' = f >>> fromServant >>> f'
