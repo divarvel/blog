@@ -7,7 +7,7 @@ tags: haskell, elm
 A few days ago, I thought "haha, haskle, that sounds like wordle, but for haskell".
 
 Fast forward two days, and I’m releasing [haskle](https://haskle.net). It’s a small
-wordle-like game, where the goal to guess a function from prelude given its (obfuscated)
+wordle-like game, where the goal is to guess a function from prelude given its (obfuscated)
 type. The type elements are gradually revealed as you try names. It’s really fun for
 functions with descriptive types (eg `🤷 🤷 => 🤷 🤷 => (🤷 ->🤷 🤷) -> 🤷 🤷 -> 🤷(🤷 🤷)`),
 not so much when you’re in `Floating` land. Still, I’ve learned about a lot of numeric
