@@ -65,7 +65,7 @@ shy :-)
 
 ### Hear me rant (in French)
 
-I've given a talk about CLI Parse in February: [slides (English)](http://clementd-files.cellar-c1.clvrcld.net/blog/cli-parse-ht.html)
+I've given a talk about CLI Parse in February: [slides (English)](http://clementd-files.cellar-c2.services.clever-cloud.com/blog/cli-parse-ht.html)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/QHbMMNkw2Mk" frameborder="0" allowfullscreen></iframe>
 
