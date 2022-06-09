@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <title>$title$ - Musings about FP and CS</title>
   <meta charset="utf-8" />
+  <title>$title$ - Musings about FP and CS</title>
+  $if(canonical)$
+  <link rel="canonical" href="$canonical$">
+  $endif$
   <link href="http://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet" type="text/css">
   <link href="http://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="/css/default.css" />
@@ -48,6 +51,11 @@
         </p>
 
     </footer>
+    <script type="text/javascript">
+      if(window.location.toString().startsWith("http://blog.clement.delafargue.name")) {
+        window.location.replace("https://blog.clement.delafargue.name");
+      }
+    </script>
     <script type="text/javascript">
 
       var _gaq = _gaq || [];
