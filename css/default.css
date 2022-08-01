@@ -69,6 +69,10 @@ nav a:hover {
     text-decoration: none;
 }
 
+section.repost {
+    font-style: italic;
+}
+
 article header p {
     margin: 0.2em;
     margin-left: 2em;
@@ -95,6 +99,10 @@ body>footer {
 
 .figure .caption {
     font-style: italic;
+}
+
+figure>img {
+  max-width: 100%;
 }
 
 ins {
