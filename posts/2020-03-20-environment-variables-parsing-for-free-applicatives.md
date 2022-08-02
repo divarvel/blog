@@ -3,7 +3,6 @@ title: Environment variables parsing for free (applicatives)
 author: Clement Delafargue
 tags: haskell, free applicative
 canonical: https://tech.fretlink.com/environment-variables-parsing-for-free-applicatives/
-fretlink_post: true
 ---
 
 _Edit 2020-05-04: I have been pointed to [envparse](https://hackage.haskell.org/package/envparse), which is touted as "optparse-applicative, but for enviroment variables" and is implemented with free applicative functors. Sounds familiar? It is more polished and has a better design than what's shown in the article, but it is strikingly similar to what I came up with._

@@ -3,7 +3,6 @@ title: Yet another unsafe DB layer
 author: Clement Delafargue
 tags: haskell
 canonical: https://tech.fretlink.com/yet-another-unsafe-db-layer/
-fretlink_post: true
 ---
 
 _Edit 2022-08-01: My excellent former colleague Hécate found out (after leaving Fretlink) that those internal helpers were actually useful and reimplemented them in an open-source library: [pg-entity](https://hackage.haskell.org/package/pg-entity)._
