@@ -2,7 +2,7 @@
 title: The doomsday machine
 author: Clement Delafargue
 tags: haskell
-canonical: https://tech.fretlink.com/the-doomsday-machine/
+saved-from: https://tech.fretlink.com/the-doomsday-machine/
 ---
 
 ![The russian ambassador in Dr Strangelove](/files/russian-ambassador-1.jpg)

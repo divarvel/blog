@@ -2,7 +2,7 @@
 title: So you want to revoke macaroons
 author: Clement Delafargue
 tags: haskell
-canonical: https://tech.fretlink.com/so-you-want-to-revoke-macaroons/
+saved-from: https://tech.fretlink.com/so-you-want-to-revoke-macaroons/
 ---
 
 Macaroons are bearer tokens. As for every bearer token, the question of revocation is important: how can we stop a token from being accepted by services?
