@@ -4,13 +4,13 @@ author: Clément Delafargue
 tags: keyboard,  qmk
 ---
 
-*The blog post was a pun on King Gizzard & the Lizard Wizard last record's name, but they released yet another one while I was writing this post. I guess that says a lot both about me, and about them.*
+*The blog post was a pun on King Gizzard & the Lizard Wizard last record's name, but they released yet another one while I was writing this post, and it seems they are already working on another one. I guess that says a lot both about me, and about them.*
 
 My journey with weird keyboards started many years ago, in 2009, with the acquisition of a [typematrix 2030](http://www.typematrix.com/2030/features.php) and switching to [bépo](https://bepo.fr/wiki/Accueil), an ergonomic keyboard layout designed for the French language.
 
-I've used it for many years. I loved its orthogonal layout, and the fact that return and backspace were put under pointer fingers instead of straining my right pinky. At some point I stopped working with an external monitor and only worked on laptops, so I stopped using my typematrix. There were also issues with its skin (a kind of rubber layer that protects the keyboard).
+I've used it for many years. I loved its orthogonal layout, and the fact that return and backspace were put under pointer fingers instead of straining my right pinky. At some point I stopped working with an external monitor and only worked on laptops, so I stopped using my typematrix. There were also issues with its skin (a kind of rubber layer that protects the keyboard), that would become kind of dirty, while still allowing they keyboard to get dirty as well.
 
-Fast forward a couple years. I finally land a nice job working for a company based in Paris, and I have a proper office room at home. I wanted to try mechanical keyboards for some time, and I was particularly intrigued by ergodox keyboards: they are split in the middle, with two independent halves. This allows keeping the hands at shoulder width, tilting and tenting halves independently, etc. It also features thumb clusters: instead of using thumbs only for pressing space, they are now used for space, backspace, enter, esc, …. I looked a bit at how to build one and got overwhelmed, so I decided to get a pre-built one from [ergodox ez](https://ergodox-ez.com/). I'm super happy with it, even though i don't use thumb clusters to their full extent (they have 6 keys each, even though I only use 2), and it just takes a lot of place. Another issue I have with it is that it has unusual keycaps, so it's hard to find alternative keycap sets.
+Fast forward a couple years. I finally land a nice job working for a company based in Paris, and I have a proper office room at home. I wanted to try mechanical keyboards for some time, and I was particularly intrigued by ergodox keyboards: they are split in the middle, with two independent halves. This allows keeping the hands at shoulder width, tilting and tenting halves independently, etc. It also features thumb clusters: instead of using thumbs only for pressing space, they are now used for space, backspace, enter, esc, …. I look a bit at how to build one and get overwhelmed, so I decide to get a pre-built one from [ergodox ez](https://ergodox-ez.com/). I'm super happy with it, even though i don't use thumb clusters to their full extent (they have 6 keys each, even though I only use 2), and it just takes a lot of place. Another issue I have with it is that it has unusual keycaps, so it's hard to find alternative keycap sets.
 
 Fast forward a couple years (again). I stumble upon the iris keyboard. I like a few things about it: way smaller thumb clusters with a better repartition, and it only uses 1u keycaps, so ortholinar keysets work with it. It's also quite smaller than the ergodox, and works with usb c cables. I get an iris rev7 kit, which comes with hotswap sockets, no need to solder switches. I just solder a single rotary encoder on the top left.
 
@@ -30,6 +30,8 @@ I will detail further the layout I ended up with on the ferris. It's not too dif
 I used the ferris as my primary keyboard for a couple weeks after assembling it, not only because I wanted to break it in, but also because I hurt my wrists and the high-profile of the iris was less comfortable than the ultra-thin ferris. 
 I have since gone back to using the iris as my primary keyboard because it is still more convenient and doesn't require as much combos.
 
+![My keyboards: a black typematrix 2030 keyboard on top, then a black ergodox ez, then a white iris with orange accents, then a white ferris sweep](/files/keyboards.jpg)
+
 ## Conclusion
 
 Typematrix will always have a special place in my heart as my first non-standard keyboard, but it is too narrow for me, is fully orthogonal and not just ortholinear, the skins get dirty over time, it does not use mech switches. I have kept mine as a souvenir, but I don't plan on using it anymore.
@@ -38,7 +40,9 @@ The ergodox-ez was a great way to get started with split keyboards, but it is to
 
 The iris is wonderful keyboard. It is just the right size for me, especially the thumb keys. The rotary encoder for volume control is pure joy. Finally, it can be directly configured over USB via a web app. I love it.
 
-Finally the ferris sweep is an uncompromising keyboard. I think fully adopting it allows to be the most efficient, but I did not want to give up on all my muscle memory, so I'm not using it to its full extent. That being said, it's a great travel keyboard and I'm happy to use it when I'm not at home. I cannot directly configure it over USB, but I use qmk configurator to generate config files, compile them and then copy the firmware over USB mass storage. It's a bit more convenient than what I had to do with the ergodox.
+Finally the ferris sweep is an uncompromising keyboard. I think fully adopting it allows to be the most efficient, but I did not want to give up on all my muscle memory, so I'm not using it to its full extent. That being said, it's a great travel keyboard and I'm happy to use it when I'm not at home. I cannot directly configure it over USB, but I use qmk configurator to generate config files, compile them and then copy the firmware over USB mass storage. It's a bit more convenient than what I had to do with the ergodox, where I needed to press a reset switch with a paperclip and then run a flashing utility.
+
+You can stop reading here if you're not interested in bépo layout minutia.
 
 ## Bépo adaptation
 
@@ -46,6 +50,8 @@ Once I had a working keyboard, it was time for tweaking the layout. Ferris offer
 
 I started from the [default ferris layout](https://github.com/qmk/qmk_firmware/tree/master/keyboards/ferris/keymaps/default), with home row mods. 
 I kept the home row mod idea, but departed significantly from the rest, since my goal was to keep using other keyboards, I wanted to minimize the amount of changes to a regular keyboard.
+
+Here is the [layout file](/files/ferris-keymap.json), even though it does not make much sense to use it directly.
 
 My goal was to make sure every letter was on the main layer. That means moving m,z,w around, by removing other characters. My choice went to à,è,^. Since m is the most used of the three, I decided to keep it on the same hand, so it replaced !. Then z went to the è, and w to à.
 
