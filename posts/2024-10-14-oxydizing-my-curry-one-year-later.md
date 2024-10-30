@@ -53,7 +53,7 @@ Everytime I use Haskell, I miss Rust’s tooling.
 
 I still use Haskell outside of work. I maintain [biscuit-haskell](https://hackage.haskell.org/package/biscuit-haskell). I recently landed a PR in [servant](https://hackage.haskell.org/package/servant).
 
-It’s not really Haskell, but I snuck in Elm in an internal project at work. The more I use elm, the more I see it as being a great language for learning and teaching, but not so good at anything else. Still, it allowed me to scratch my Haskell itch.
+It’s not really Haskell, but I snuck in Elm in an internal project at work. The more I use Elm, the more I see it as being a great language for learning and teaching, but not so good at anything else. Still, it allowed me to scratch my Haskell itch.
 
 ## Closing words
 
