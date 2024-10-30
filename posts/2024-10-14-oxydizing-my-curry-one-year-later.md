@@ -12,7 +12,7 @@ Note that I have not changed job because I wanted to stop using Haskell professi
 
 ## The state of Haskell jobs
 
-I have been both in the position of recruiting Haskell developers and and looking for a Haskell job in the past few years, and things are in a weird state. In general I have noted an imbalance in favor of companies: lots of talented developers want to use Haskell at work. However, once you have some professionnal experience with Haskell it gets a bit better. But yeah, the pools for both canditates and opportunities are small, so timing is everything. Also, be prepared for working / hiring in a different country. Being comfortable with async / remote work is super important.
+I have been both in the position of recruiting Haskell developers and looking for a Haskell job in the past few years, and things are in a weird state. In general I have noted an imbalance in favor of companies: lots of talented developers want to use Haskell at work. However, once you have some professionnal experience with Haskell it gets a bit better. But yeah, the pools for both canditates and opportunities are small, so timing is everything. Also, be prepared for working / hiring in a different country. Being comfortable with async / remote work is super important.
 
 Actively looking for a job is always rough, anyways and it’s sometimes hard to not take things personally.
 
@@ -53,7 +53,7 @@ Everytime I use Haskell, I miss Rust’s tooling.
 
 I still use Haskell outside of work. I maintain [biscuit-haskell](https://hackage.haskell.org/package/biscuit-haskell). I recently landed a PR in [servant](https://hackage.haskell.org/package/servant).
 
-It’s not really Haskell, but I snuck in Elm in an internal project at work. The more I use elm, the more I see it as being a great for learning and teaching, but not so good at anything else. Still, it allowed me to scratch my Haskell itch.
+It’s not really Haskell, but I snuck in Elm in an internal project at work. The more I use elm, the more I see it as being a great language for learning and teaching, but not so good at anything else. Still, it allowed me to scratch my Haskell itch.
 
 ## Closing words
 
