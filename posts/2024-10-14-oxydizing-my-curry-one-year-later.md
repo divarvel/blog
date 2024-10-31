@@ -18,7 +18,7 @@ Actively looking for a job is always rough, anyways and it’s sometimes hard to
 
 As for Rust, I think it has similarities with Haskell, but both the jobs/candidates pools are bigger, so things tend to be a bit more stable. Same as for Haskell, having professionnal experience with Rust makes things way easier. Lots of people want to start using Rust at work, not so many have the experience to help create and grow a Rust team.
 
-The move from Rust to Haskell seems to be a common one, and I get it. Rust is way less niche than Haskell and somehow less scary to employers (I’ve always thought it’s a wrong impression, as I think Haskell has a smoother learning curve than Rust).
+The move from Haskell to Rust seems to be a common one, and I get it. Rust is way less niche than Haskell and somehow less scary to employers (I’ve always thought it’s a wrong impression, as I think Haskell has a smoother learning curve than Rust).
 
 For me, I had the opportunity to work on [biscuit](https://biscuitsec.org) at work with a great team, so moving from Haskell to Rust was more of a tradeoff than a deliberate choice. My initial plan was to keep using Haskell at work.
 
