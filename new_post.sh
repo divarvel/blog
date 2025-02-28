@@ -22,4 +22,4 @@ tags:
 
 EOF
 
-$EDITOR "posts/."$filename
+$EDITOR "posts/"$filename
