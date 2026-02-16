@@ -1,6 +1,6 @@
 ---
 title: My coffee workflow
-author: Clement Delafargue
+author: Clément Delafargue
 tags: coffee, espresso, flair58, v60
 ---
 
