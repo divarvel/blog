@@ -20,17 +20,17 @@ It was clear that if I were to continue lecturing people on this, I would need t
 
 In a fun turn of events, I ended up doing the same thing I did in 2013 when I started using haskell thanks to hakyll: generate a static website.
 
-OCaml has [YOCaml](https://yocaml.github.io/tutorial/index.html), a static site generator (actually a build system) heavily inspired from Hakyll (hakyll 3, not 4; which is interesting, but a discussion for another time).
+OCaml has [YOCaml](https://yocaml.github.io/tutorial/index.html), a static site generator (actually a build system) heavily inspired from Hakyll (hakyll 3, not 4; which is interesting, but a discussion for another time [^2]).
 
-I set out to rewrite [my homepage](https://github.com/divarvel/physical-homepage) (actually just a static list of talks, but served as a dynamic website) as a static website[^4].
+I set out to rewrite [my homepage](https://github.com/divarvel/physical-homepage) (actually just a static list of talks, but served as a dynamic website) as a static website[^3].
 
-This was a great fit since it allowed me to try out ocaml tooling in a real project, solving an actual problem within a confined scope (a single [^5] library, no need for ocaml-specific deployment).
+This was a great fit since it allowed me to try out ocaml tooling in a real project, solving an actual problem within a confined scope (a single [^4] library, no need for ocaml-specific deployment).
 
 I also tried [statichost.eu](https://statichost.eu) and it mostly worked. A few rough edges but it does what I want, no more, no less.
 
 ## First thoughts about ocaml
 
-It’s a bit of a mixed bag for me. The language feels both modern and dated. Tooling is generally fast and nice, but a bit cumbersome and in an in-between. There are a lot of syntactic choices I like, but I still find the code a bit _too_ verbose.
+It’s a bit of a mixed bag for me. The language feels both modern and dated. Tooling is generally fast and nice, but a bit cumbersome, especially because of having to use dune _and_ opam. As far as the language is concerned, there are a lot of syntactic choices I like, but I still find the code a bit _too_ verbose.
 
 ### Tooling
 
@@ -38,7 +38,7 @@ I often joke that when using haskell, I love the language, but long for rust’s
 
 #### Opam
 
-Opam gave me a weird flashback of the haskell situation in the early 2010s. Opt-in per-project isolation. Opam switches feel clunky. I like that the compiler is part of the dependencies. I don’t like that creating a new switch requires rebuilding the compiler (I’ve been told that this was being fixed, by making the compiler relocatable and as such shareable across projects).
+Opam gave me a weird flashback of the haskell situation in the early 2010s. Opt-in per-project isolation. Opam switches feel clunky. I like that the compiler is part of the dependencies. I don’t like that creating a new switch requires rebuilding the compiler (I’ve been told that this was being fixed, by making the compiler relocatable and as such shareable across switches).
 
 In any case this feels extremely outdated compared to the rust ecosystem and even cabal v2. Managing environments by sourcing env vars instead of having tooling manage it directly is not-so-good.
 
@@ -54,7 +54,7 @@ A nice surprise was `dune build --watch` which provides a ghcid-like experience 
 
 There are a few things that I found weird with dune, for instance `dune exec` requiring a `.exe` to target a module, and passing `@ocaml-index` to `dune build`.
 
-I’m not sure whether it’s dune’s fault, but dune erroring on warnings is extremely annoying, especially for unused variables [^6].
+I’m not sure whether it’s dune’s fault, but dune erroring on warnings is extremely annoying, especially for unused variables [^5].
 
 #### `ocaml-lsp`
 
@@ -62,45 +62,105 @@ Honestly, for now it mostly just worked. It’s fast, it was easy to setup and i
 
 Maybe it’s just that I worked on a small project, but it felt really fast.
 
-The only thing that did not go well is cross module stuff (type checking, renames, etc). Everything works well within a module, but stuff broke easily across modules.
+The only thing that did not go well is cross module stuff (type checking, renames, etc). Everything works well within a module, but stuff broke easily across modules. It looks like each file is handled in isolation, while I would have expected the LSP to detect a dune project, watch the files and recompile as needed. It just works in all the other languages I have tested, so I would expect it to work as well in other languages. A workaround is to run `dune build @ocaml-index --watch`, IMO that should be handled by the LSP.
 
 ### Ergonomics
 
-I’m really interested in ergonomics, because I’m now very used to ML languages, so I’m not wow-ed by basic features any more.
+I’m really interested in ergonomics, because I’m now very used to ML languages, so I’m not wow-ed by basic features (ADTs, expressions) any more.
 
 #### We get it, you have great type inference
 
 That’s been my main gripe, especially as a beginner: the focus on type inference makes using top-level signatures un-idiomatic. In haskell you can omit them, but it’s considered bad style and `-Wall` complains about it.
 
-In OCaml, you can use `.mli` files to define module signatures, which partially solves the issue (there is friction when jumping between files, and it only works for exported bindings), or add annotations directly within definitions. This is a bit cumbersome, but it works.
+In OCaml, you can use `.mli` files to define module signatures, which partially solves the issue (there is friction when jumping between files, and it only works for exported bindings), or add annotations directly within definitions. This is a bit cumbersome, but it works. The `type-annotate` code action helps when the type has already been inferred (from its use), but that’s not always possible.
 
-The reason why it frustrates me so much is that I start by thinking about types, and then fill out the implementation. Infering a type from an implementation feels absolutely backwards to me (of course I still value type inference within named definitions). I also get why separate signature files make sense for efficient separate compilation, but I feels like a technical optimization made at the expense of ergonomics. If I wanted to make my life harder just to make a compiler easier to write, I’d just write go [^1].
+The reason why it frustrates me so much is that I start by thinking about types, and then fill out the implementation. Infering a type from an implementation feels absolutely backwards to me (of course I still value type inference within named definitions). I also get why separate signature files make sense for efficient separate compilation, but I feels like a technical optimization made at the expense of ergonomics. If I wanted to make my life harder just to make a compiler easier to write, I’d just write go [^6].
 
 #### Modules
 
 I don’t have enough experience with modules to rave about their merits compared to type classes, so I’ll focus on smaller ergonomics considerations.
 
-Using local imports grew on me with rust. That makes unqualified imports way more palatable. I especially like how `open` meshes with `let` bindings. The local opens were a great discovery. I still need to see how they fare in practice, but it seems to me that it opens great eDSL opportunities.
+Using local imports grew on me with rust. That makes unqualified imports way more palatable. I especially like how `open` meshes with `let` bindings. The local opens were a great discovery. I still need to see how they fare in practice, but it seems to me that it opens great eDSL opportunities. They also make the need for explicit import lists less useful.
+
+
+```ocaml
+let pictures = Path.(assets / "pictures")
+
+let pictures =
+    let open Path in
+    assets / "pictures"
+```
 
 #### Labeled and optional arguments
 
 Haskell and rust don’t have optional arguments, so I kinda learned to live without it. In haskell, partial application makes it relatively painless (as long as you don’t have too many or there is a well defined precedence). In rust you can work around it with defining multiple functions or using structs with `Default` impls. It’s still cumbersome.
 
-I think I like this feature, even though its use in the `Option` module made things extremely verbose compared to haskell.
+I think I like this feature, even though its use in the `Option` module made things extremely verbose compared to haskell or even rust (granted, ocaml and haskell can make use of currying to be terser). 
+
+```ocaml
+(* ocaml *)
+Option.value ~default: "n/a" myOption
+```
+
+```rust
+// rust
+my_option.unwrap_or("n/a")
+```
+
+```haskell
+-- haskell
+fromMaybe "n/a" myMaybe
+```
 
 #### `let` bindings
 
-I was a bit surprised by `let … and … in`. In haskell there a single `let … in` for multiple bindings. In dhall, there is one `let … in` per binding (this also works in OCaml). In isolation, I don’t see the value in using `let … and … in` compared to multiple `let … in` bindings. I favor the latter (out of style, this feels more minimal, and out of practicality: repeated let bindings can be reordered easily). In haskell, there is redundancy with `where` blocks. I stopped using them altogether to favor `let in`, since it maps directly with expressions.
+I was a bit surprised by `let … and … in`. In haskell there a single `let … in` for multiple bindings. In dhall, there is one `let … in` per binding (this also works in OCaml). In isolation, I don’t see the value in using `let … and … in` compared to multiple `let … in` bindings. I favor the latter (for style: this feels more minimal, and for practicality: repeated let bindings can be reordered easily). In haskell, there is redundancy with `where` blocks. I stopped using them altogether to favor `let in`, since it maps directly with expressions.
 
 OCaml does not have `do` blocks, but does have `let*` for monadic bindings, and `let+` / `and+` for applicative bindings. For library authors, it’s a bit cumbersome because it has to be redefined in each module. For me, it was quite nice. I like the expressivity, compared for instance to rust’s `?`. In rust you can use multiple `?`s in a single expression, which can be useful from time to time, but can also make things hard to read. Compared to haskell, I like how it aligns more nicely with `let` bindings, and is less ambiguous than `ApplicativeDo`.
 
+```ocaml
+(* ocaml *)
+(* explicitly declare applicative composition: y cannot depend on x *)
+let+ x = …
+and+ y = …
+in f x y
+
+(* explicitly declare monadic composition: y can depend on x *)
+let* x = …
+let* y = …
+in f x y
+```
+
+```haskell
+-- haskell
+-- monadic or applicative constraints are inferred from how x and y are defined
+-- using pattern matching on the left-hand side (even irrefutable patterns) force
+-- a Monad constraint. This is annoying
+do
+  x <- …
+  y <- …
+  f x y
+```
+
+```rust
+// rust
+// ? does not force intermediate bindings, but works only within functions and
+// does not support applicative composition
+fn my_func(): Result<A, E> = {
+    let x = get_x()?;
+    let y = get_y()?;
+    Ok(f(x,y))
+}
+```
+
+
 ## Conclusion
 
-Honestly, it’s nice. It’s nowhere near as terse as haskell, but it provides solid foundations, and the tooling is honestly promising, assuming that the `opam switch` weirdness can be hidden. I will need to spend more time with it, but I really liked the overall experience. Now I’m curious about the wider ecosystem, especially backend web development. I also want to try deploying unikernels.
+Honestly, it’s nice. It’s nowhere near as terse as haskell, but it provides solid foundations, and the tooling is honestly promising, assuming tooling standardises around `dune`. I will need to spend more time with it, but I really liked the overall experience. Now I’m curious about the wider ecosystem, especially backend web development. I also want to try deploying unikernels.
 
 [^1]: I don’t like go
-[^2]: todo mirage os
-[^3]: wasm of ocaml
-[^4]: _if you like static websites so much, why did you build a dynamic website to serve static data?_ Well that’s a great question, dear reader I made up in my mind to serve as a rhetorical device. I wrote it at a time where I was working at a PaaS company that made serving haskell applications extremely easy, and at the time even easier than static websites. Now it’s easier to deploy static websites with TLS support, and I try to be frugal.
-[^5]: more accurately a collection of cohesive libraries, but who cares?
-[^6]: what is this, go? See `1.`
+[^2]: Hakyll 3 was based on arrows. Hakyll 4 moved to monads, for better syntactic support and familiarity (yes, justifying using monads because they are more familiar really does say something about haskell users)
+[^3]: _if you like static websites so much, why did you build a dynamic website to serve static data?_ Well that’s a great question, dear reader I made up in my mind to serve as a rhetorical device. I wrote it at a time where I was working at a PaaS company that made serving haskell applications extremely easy, and at the time even easier than static websites. Now it’s easier to deploy static websites with TLS support, and I try to be frugal.
+[^4]: more accurately a collection of cohesive libraries, but who cares?
+[^5]: what is this, go? See `1.`
+[^6]: See `1.`
