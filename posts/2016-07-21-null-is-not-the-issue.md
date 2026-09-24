@@ -67,8 +67,7 @@ This works perfectly well, but is still as verbose as using explicit `null` chec
 Thankfully that's not the idiomatic way of handling `Optional` values: now that we can denote the abstract concept of _being possibly not there_ (in this case, `Optional<_>`), then we can do useful stuff about it:
 
 - transforming it only if it's defined (with `map`)
-- eliminate the option by providing a default value when we don't need the  
-- information anymore (with `orElseGet`)
+- eliminate the option by providing a default value when we don't need the information anymore (with `orElseGet`)
 - sequencing several operations returning options (with `flatMap`)
 
 All of this comes for free because we were able to clearly define our domain model. Some languages like Kotlin provide approaching solutions with things like the Safe Call Operator for chaining operations (instead of using `map` and `flatMap`) and the Elvis Operator for providing default values. This, however, is less extensible and less composable than having proper options (`map` and `flatMap` are not specific to `Optional`).
